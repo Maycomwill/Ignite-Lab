@@ -1,7 +1,7 @@
 module.exports = {
   "stories": [
+    "../src/**/*.stories.@(js|jsx|ts|tsx)",
     "../src/**/*.stories.mdx",
-    "../src/**/*.stories.@(js|jsx|ts|tsx)"
   ],
   "addons": [
     "@storybook/addon-links",
@@ -14,6 +14,17 @@ module.exports = {
     "builder": "@storybook/builder-vite"
   },
   "features": {
-    "storyStoreV7": true
+    "storyStoreV7": true,
+    "interactionsDebugger": true
+  },
+  "staticDirs": [
+    "../public"
+  ],
+
+  viteFinal: (config, { configType }) => {
+    if(configType === 'PRODUCTION') {
+      config.base = '/Ignite-Lab/'
+    }
+    return config
   }
 }
