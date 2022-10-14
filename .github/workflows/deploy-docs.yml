@@ -1,4 +1,4 @@
-name: Deploy Storybook
+name: Deploy docs
 
 on:
   push:
@@ -8,7 +8,6 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -17,12 +16,14 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
 
       - run: npm ci
 
       - run: npm run build-storybook
-      
-      - name: Deploy Storybook
-        run: npm run deploy-storybook -- --ci --existing-output-dit=storybook-static
+
+      - name: Deploy storybook
+        run: npm run deploy-storybook -- --ci --existing-output-dir=storybook-static
         env:
           GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
