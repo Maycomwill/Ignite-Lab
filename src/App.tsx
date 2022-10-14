@@ -1,8 +1,9 @@
 import { EnvelopeSimple, Lock } from 'phosphor-react'
-import Logo from './assets/SVGDARK.svg'
+import Logo from './assets/professor-animate.svg'
 import { Button } from './components/Button'
 import { Checkbox } from './components/Checkbox'
 import { Heading } from './components/Heading'
+import { SVGHome } from './components/SVGHome'
 import { Text } from './components/Text'
 import { TextInput } from './components/TextInput'
 import './styles/main.css'
@@ -12,12 +13,11 @@ function App() {
   return (
     <div className='w-screen h-full text-gray-100 flex flex-col items-center justify-center bg-gray-900'>
     <header className='flex items-center flex-col'>
-      <img src={Logo} className="w-52 h-w-52" alt="Logo" />
-      <Heading size='xlg' className='text-gray-100 mt-4'>Ignite Lab</Heading>
-      <Text size='md' className='text-gray-200 mt-1'>Faça login e comece a usar!</Text>
+      <SVGHome />
+      <Heading size='xlg' className='text-gray-100'>Ignite Lab</Heading>
+      <Text size='md' className='text-gray-200'>Faça login e comece a usar!</Text>
     </header>
-
-    <form className='flex flex-col gap-4 items-stretch mt-4 w-full max-w-sm'>
+    <form className='flex flex-col gap-4 items-stretch mt-8 w-full max-w-sm'>
       <label htmlFor='email'className='flex flex-col gap-3'>
         <Text className='text-sm font-semibold'>
           Endereço de E-mail
