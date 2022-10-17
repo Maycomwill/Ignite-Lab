@@ -47,9 +47,17 @@ module.exports = {
         300: '#cdf766',
         200: '#def999',
         100: '#eefccc',
-      }
+      },
+
+    sucess: '#34D399',
+    alert: '#F87171',
+
     },
     extend: {
+      animation: {
+        'spin-slow': 'spin 2s linear infinite'
+      },
+
       fontFamily: {
         sans: 'Inter, sans-serif'
       }

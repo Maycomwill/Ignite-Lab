@@ -3,6 +3,7 @@ import { InputHTMLAttributes, ReactNode } from 'react'
 import { Slot } from '@radix-ui/react-slot'
 
 export interface TextInputInputProps extends InputHTMLAttributes<HTMLInputElement> {
+  autoComplete: string,
 }
 
 export interface TextInputRootProps {

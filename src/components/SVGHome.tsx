@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react"
 
-interface SVGProps extends SVGAttributes<HTMLOrSVGElement> {
+export interface SVGProps extends SVGAttributes<HTMLOrSVGElement> {
 
 }
 
