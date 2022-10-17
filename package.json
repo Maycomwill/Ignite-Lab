@@ -19,11 +19,16 @@
     "axios": "^1.1.2",
     "clsx": "^1.2.1",
     "firebase": "^9.12.1",
+    "glob-parent": "^6.0.2",
+    "parse-path": "^7.0.0",
+    "parse-url": "^8.1.0",
     "phosphor-react": "^1.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-firebase-hooks": "^5.0.3",
-    "react-router-dom": "^6.4.2"
+    "react-router-dom": "^6.4.2",
+    "trim": "^1.0.1",
+    "trim-newlines": "^4.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
