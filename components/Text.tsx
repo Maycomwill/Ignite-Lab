@@ -2,21 +2,22 @@ import { clsx } from 'clsx'
 import { Slot } from '@radix-ui/react-slot';
 import { ReactNode } from 'react';
 
-export interface HeadingProps {
+export interface TextProps extends React.HTMLAttributes<HTMLSpanElement> {
   size?: 'xsm' | 'sm' | 'md' | 'lg' | 'xlg';
   children: ReactNode;
   asChild?: boolean;
   className?: string;
+  
 }
 
-export function Heading({ size = 'lg', children, asChild, className }: HeadingProps) {
+export function Text({ size = 'sm', children, asChild, className }: TextProps) {
 
-  const Comp = asChild ? Slot : 'h2';
+  const Comp = asChild ? Slot : 'span';
 
   return (
     <Comp
       className={clsx(
-        'text-gray-100 font-black font-sans',
+        'text-gray-100 font-sans',
         {
           'text-xsm': size === 'xsm',
           'text-sm': size === 'sm',
@@ -25,7 +26,6 @@ export function Heading({ size = 'lg', children, asChild, className }: HeadingPr
           'text-xlg': size === 'xlg',
         },
         className
-        
       )}
     >
       {children}

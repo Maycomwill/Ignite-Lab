@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { Button } from "../components/Button";
 import { Text } from "../components/Text";
-import { Home } from "../pages/Home";
+import { Welcome } from "../pages/Welcome";
 import { LogIn } from "../pages/LogIn";
 import { Register } from "../pages/Register";
 
@@ -24,7 +24,7 @@ export function IndexRoutes() {
             </div>
           }
         />
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Welcome />} />
         <Route path="/Login" element={<LogIn />} />
         <Route path="/Register" element={<Register />} />
       </Routes>
