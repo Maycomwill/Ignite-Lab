@@ -1,18 +1,23 @@
-import { HTMLAttributes } from 'react';
-import { Button } from './Button';
+import clsx from "clsx";
+import { House } from "phosphor-react";
+import { ButtonHTMLAttributes } from "react";
+import { Button } from "./Button";
+import { Text } from "./Text";
+import { TextInput } from "./TextInput";
 
-export interface EscolaCardProps extends HTMLAttributes<HTMLDivElement> {
+export interface EscolaCardProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   escolaName: string;
 }
 
 export function EscolaCard({ escolaName, ...props }: EscolaCardProps) {
-
   return (
-    <div className='text-gray-900'> 
-    <Button className='py-3 px-4 bg-green-500 rounded font-bold  w-full text-md transition-colors outline-none focus:ring-2 ring-gray-100 hover:bg-green-300'
-    >
-     Escola: {escolaName}
-    </Button>
-    </div>
-  )
+      <Button {...props}>
+        <div className="flex items-center">
+          <House size={20} weight={"fill"} />
+        <div className="flex flex-1 justify-center items-center ">
+          Escola: {escolaName}
+        </div>
+        </div>
+      </Button>
+  );
 }

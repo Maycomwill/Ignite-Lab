@@ -1,11 +1,11 @@
-import { Meta, StoryObj } from '@storybook/react'
+import { Meta, StoryObj } from "@storybook/react";
 import { Welcome } from "./Welcome";
 
 export default {
-  title: 'Pages/Welcome',
+  title: "Pages/Welcome",
   component: Welcome,
   args: {},
   argTypes: {},
-} as Meta
+} as Meta;
 
-export const Default: StoryObj = {}
+export const Default: StoryObj = {};

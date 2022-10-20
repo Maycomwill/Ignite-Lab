@@ -2,10 +2,6 @@ import { clsx } from 'clsx'
 import { InputHTMLAttributes, ReactNode } from 'react'
 import { Slot } from '@radix-ui/react-slot'
 
-export interface TextInputInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  autoComplete: string,
-}
-
 export interface TextInputRootProps {
   children: ReactNode,
 }
@@ -19,19 +15,21 @@ function TextInputRoot(props: TextInputRootProps) {
 }
 
 export interface TextInputIconProps {
-
+  className?: string
   children: ReactNode
-
 }
 
 function TextInputIcon(props: TextInputIconProps) {
   return (
     <Slot
-      className='w-6 h-6 text-green-500'
+    className='w-6 h-6 text-green-500'
     >
       {props.children}
     </Slot>
   )
+}
+export interface TextInputInputProps extends InputHTMLAttributes<HTMLInputElement> {
+  autoComplete: string,
 }
 
 function TextInputInput(props: TextInputInputProps) {

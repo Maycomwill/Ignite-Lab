@@ -9,5 +9,4 @@ function MainFooter() {
     </div>
   )
 }
-
 export default MainFooter

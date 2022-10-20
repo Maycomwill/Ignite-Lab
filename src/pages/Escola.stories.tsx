@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { Home } from "./Home";
+import { Escola } from "./Escola";
 
 export default {
-  title: "Pages/Home",
-  component: Home,
+  title: "Pages/Escola",
+  component: Escola,
   args: {},
   argTypes: {},
 } as Meta;

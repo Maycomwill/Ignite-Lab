@@ -4,6 +4,7 @@ import { Text } from "../components/Text";
 import { Welcome } from "../pages/Welcome";
 import { LogIn } from "../pages/LogIn";
 import { Register } from "../pages/Register";
+import { Escola } from "../pages/Escola";
 
 export function IndexRoutes() {
   return (
@@ -25,6 +26,7 @@ export function IndexRoutes() {
           }
         />
         <Route path="/" element={<Welcome />} />
+        <Route path="/escolas/:escolaId" element={<Escola />} />
         <Route path="/Login" element={<LogIn />} />
         <Route path="/Register" element={<Register />} />
       </Routes>
