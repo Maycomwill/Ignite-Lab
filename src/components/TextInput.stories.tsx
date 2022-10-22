@@ -10,7 +10,11 @@ export default {
       <TextInput.Icon>
         <EnvelopeSimple />
       </TextInput.Icon>,
-      <TextInput.Input autoComplete="false" placeholder="Digite seu E-mail" type="email" />,
+      <TextInput.Input
+        autoComplete="false"
+        placeholder="Digite seu E-mail"
+        type="email"
+      />,
     ],
   },
   argTypes: {
@@ -26,6 +30,12 @@ export const Default: StoryObj<TextInputRootProps> = {};
 
 export const WithoutIcon: StoryObj<TextInputRootProps> = {
   args: {
-    children: <TextInput.Input autoComplete="false" placeholder="Digite seu E-mail" type="email" />,
+    children: (
+      <TextInput.Input
+        autoComplete="false"
+        placeholder="Digite seu E-mail"
+        type="email"
+      />
+    ),
   },
 };

@@ -10,7 +10,6 @@ import { SVGHome } from "../components/SVGHome";
 import { Heading } from "../components/Heading";
 import { LogIn } from "./LogIn";
 import { Home } from "./Home";
-import { Header } from "../components/Header";
 import { Loading } from "../components/Loading";
 
 export function Welcome() {
@@ -24,8 +23,7 @@ export function Welcome() {
 
   if (user) {
     return (
-      <div className="flex h-screen w-screen px-4 py-4 justify-start items-center flex-col gap-4 bg-gray-900">
-        <Header />
+      <div className="flex h-screen w-screen justify-start items-center flex-col gap-4 bg-gray-900">
         <Home />
       </div>
     );
@@ -54,7 +52,7 @@ export function Welcome() {
 
         <div
           id="right-side"
-          className="w-[50%] flex flex-1 flex-col items-center justify-center px-4 py-4"
+          className="w-[50%] flex flex-col items-center justify-center px-4 py-4"
         >
           <LogIn />
         </div>

@@ -21,12 +21,36 @@ export const escolaData = [
   },
 ];
 
+export const turmasData = [
+  {
+    "turmaId": 1,
+    "escolaId": 1,
+    "nome": "3º ano A"
+  },
+  {
+    "turmaId": 2,
+    "escolaId": 2,
+    "nome": "3º ano A"
+  },
+  {
+    "turmaId": 3,
+    "escolaId": 3,
+    "nome": "3º ano A"
+  },
+  {
+    "turmaId": 4,
+    "escolaId": 4,
+    "nome": "3º ano A"
+  },
+]
+
 export const alunosData = [
   {
     "alunoId": 1,
     "nome": "João Vitor de Farias Souza",
     "escolaId": 2,
     "turma": "3º ano A",
+    "turmaId": 1,
     "turno": "diurno",
   },
   {
@@ -34,62 +58,71 @@ export const alunosData = [
     "nome": "Nathália Raphaella de Sousa Lima",
     "escolaId": 1,
     "turma": "3º ano A",
+    "turmaId": 1,
     "turno": "diurno",
   },
   {
     "alunoId": 3,
     "nome": "Maycom Willams de Farias Silva",
     "escolaId": 1,
-    "turma": "3º ano A",
+    "turma": "3º ano B",
+    "turmaId": 2,
     "turno": "diurno",
   },
   {
     "alunoId": 4,
     "nome": "Gustavo Vinícius de Farias Souza",
     "escolaId": 3,
-    "turma": "3º ano A",
+    "turma": "3º ano B",
+    "turmaId": 2,
     "turno": "diurno",
   },
   {
     "alunoId": 5,
     "nome": "José Francisco de Sousa Lima Neto",
     "escolaId": 2,
-    "turma": "3º ano A",
+    "turma": "3º ano C",
+    "turmaId": 3,
     "turno": "diurno",
   },
   {
     "alunoId": 6,
     "nome": "Marina Gabriela Silva dos Santos",
     "escolaId": 3,
-    "turma": "3º ano A",
+    "turma": "3º ano C",
+    "turmaId": 3,
     "turno": "diurno",
   },
   {
     "alunoId": 7,
     "nome": "Juride Cristina de Farias",
     "escolaId": 2,
-    "turma": "3º ano A",
+    "turma": "3º ano D",
+    "turmaId": 4,
     "turno": "diurno",
   },
   {
     "alunoId": 8,
     "nome": "Maria Nilcinete de Sousa Lima",
     "escolaId": 2,
-    "turma": "3º ano A",
+    "turma": "3º ano D",
+    "turmaId": 4,
     "turno": "diurno",
   },
   {
     "alunoId": 9,
     "nome": "Marivaldo Francisco da Silva",
     "escolaId": 3,
-    "turma": "3º ano A",
+    "turma": "3º ano B",
+    "turmaId": 2,
     "turno": "diurno",
   },
   {
     "alunoId": 10,
     "nome": "Risonaldo Barros de Lima",
     "escolaId": 3,
-    "turma": "3º ano A",
+    "turma": "3º ano C",
+    "turmaId": 3,
     "turno": "diurno",
   },
 ]
@@ -101,10 +134,25 @@ export function getEscola(number: any) {
 
 };
 
+export function getTurmas(number: any) {
+  return turmasData.filter(
+    (turma) => {if(turma.escolaId === number) return(
+      turma
+    );}
+  )
+};
+
 export function getAlunos(number: any) {
   return alunosData.filter(
-    (aluno) => {if(aluno.escolaId === number) return(
+    (aluno) => {if(aluno.turmaId === number) return(
       aluno
     );}
   )
-}
+};
+
+export function getAlunoDetail(number: any) {
+  return alunosData.find(
+    (aluno) => aluno.alunoId === number
+  );
+
+};

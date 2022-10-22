@@ -5,6 +5,9 @@ import { Welcome } from "../pages/Welcome";
 import { LogIn } from "../pages/LogIn";
 import { Register } from "../pages/Register";
 import { Escola } from "../pages/Escola";
+import { Turma } from "../pages/Turma";
+import { AlunoDetails } from "../components/AlunoDetails";
+import { Alunos } from "../pages/Alunos";
 
 export function IndexRoutes() {
   return (
@@ -17,19 +20,22 @@ export function IndexRoutes() {
               <div className="w-96 gap-4 flex flex-col items-strech text-center">
                 <Text className="text-xlg">Não há nada aqui</Text>
                 <Link to="/">
-                  <Button >
-                    Volte para a Home
-                  </Button>
+                  <Button>Volte para a Home</Button>
                 </Link>
               </div>
             </div>
           }
         />
-        <Route path="/" element={<Welcome />} />
-        <Route path="/escolas/:escolaId" element={<Escola />} />
-        <Route path="/Login" element={<LogIn />} />
-        <Route path="/Register" element={<Register />} />
+        <Route path="/" element={<Welcome />}>
+          <Route path="/escolas/:escolaId" element={<Escola />}>
+            <Route path=":turmaId" element={<Turma />}>
+              <Route path=":alunoId" element={<AlunoDetails />} />
+            </Route>
+          </Route>
+        </Route>
+          <Route path="/Login" element={<LogIn />} />
+          <Route path="/Register" element={<Register />} />
       </Routes>
     </Router>
-  )
+  );
 }

@@ -5,10 +5,8 @@ import "./styles/main.css";
 
 function App() {
   return (
-    <div className="max-w-screen w-screen max-h-screen h-screen flex flex-col gap-2">
-      <div className="w-full h-full">
-        <IndexRoutes />
-      </div>
+    <div className="flex flex-col gap-2">
+      <IndexRoutes />
       <MainFooter />
     </div>
   );

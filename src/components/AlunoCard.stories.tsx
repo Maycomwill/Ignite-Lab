@@ -10,7 +10,11 @@ export default {
       <AlunoCard.Icon>
         <User />
       </AlunoCard.Icon>,
-      <AlunoCard.Content nome="Maycom Willams de Farias Silva" turma="3º ano A" turno="Diurno"></AlunoCard.Content>,
+      <AlunoCard.Content
+        nome="Maycom Willams de Farias Silva"
+        turma="3º ano A"
+        turno="Diurno"
+      ></AlunoCard.Content>,
     ],
   },
   argTypes: {
