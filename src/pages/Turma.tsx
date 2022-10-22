@@ -1,4 +1,4 @@
-import { Books } from "phosphor-react";
+import { Books, User } from "phosphor-react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
 import { Button } from "../components/Button";
@@ -27,7 +27,7 @@ export function Turma() {
                   <li>
                     <AlunoCard.Root>
                       <AlunoCard.Icon>
-                        <Books />
+                        <User />
                       </AlunoCard.Icon>
                       <AlunoCard.Content
                         alunoId={aluno.alunoId}
