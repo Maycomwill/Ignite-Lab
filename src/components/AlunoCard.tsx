@@ -42,7 +42,7 @@ function AlunoCardContent(props: AlunoCardContentProps) {
         <Text color="white">Aluno(a): {props.nome}</Text>
       </div>
       <div>
-        <Button size="sm" onClick={() => navigate(`${props.alunoId}`)}>Mais detalhes</Button>
+        <Button size="sm" onClick={() => navigate(`/${props.alunoId}`)}>Mais detalhes</Button>
       </div>
     </div>
   );

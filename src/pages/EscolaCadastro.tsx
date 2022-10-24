@@ -5,7 +5,7 @@ import {
   Hash,
   MapPin,
 } from "phosphor-react";
-import { FormEvent, useState } from "react";
+import { FormEvent, ReactElement, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components/Button";
 import { Heading } from "../components/Heading";
@@ -13,7 +13,7 @@ import { Loading } from "../components/Loading";
 import { Text } from "../components/Text";
 import { TextInput } from "../components/TextInput";
 
-interface EscolaCadastroProps {}
+interface EscolaCadastroProps extends ReactElement {}
 
 function EscolaCadastro(): EscolaCadastroProps {
   const [schoolName, setSchoolName] = useState("");

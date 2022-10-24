@@ -6,11 +6,10 @@ import { Text } from "../components/Text";
 import { escolaData } from "../services/fetchData";
 
 export function Home() {
-
   const navigate = useNavigate();
 
   function handleCadastroScreen() {
-    navigate('/escolas/cadastro')
+    navigate("/escolas/cadastro");
   }
 
   return (
@@ -19,25 +18,33 @@ export function Home() {
       <div className="w-full flex flex-col gap-4">
         <div className="flex flex-col">
           <div className="flex flex-1 justify-between pb-4">
-          <Text size="lg">Escolas cadastradas:</Text>
-          <div>
-          <Button onClick={handleCadastroScreen} size="sm">Cadastrar escola</Button>
+            <Text size="lg">Escolas cadastradas:</Text>
+            <div>
+              <Button onClick={handleCadastroScreen} size="sm">
+                Cadastrar escola
+              </Button>
+            </div>
           </div>
-          </div>
-          <div className="flex gap-4">
-            <ul className="flex gap-2 list-none">
-              {escolaData.map((escola) => {
-                return (
-                  <li key={escola.id}>
-                    <EscolaCard
-                      onClick={() => {
-                        navigate(`/escolas/${escola.id}`);
-                      }}
-                      escolaName={escola.name}
-                    />
-                  </li>
-                );
-              })}
+          <div className="w-[80%] py-3 flex gap-4">
+            <ul className="flex flex-wrap gap-2 list-none">
+              {escolaData ? (
+                escolaData.map((escola: any) => {
+                  return (
+                    <li key={escola.id}>
+                      <EscolaCard
+                        onClick={() => {
+                          navigate(`/escolas/${escola.id}`);
+                        }}
+                        escolaName={escola.name}
+                      />
+                    </li>
+                  );
+                })
+              ) : (
+                <Text size="md" weight="bold">
+                  Você ainda não tem escolas cadastradas
+                </Text>
+              )}
             </ul>
           </div>
         </div>

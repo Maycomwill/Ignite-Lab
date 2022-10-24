@@ -43,7 +43,6 @@ export function Turma() {
             </ul>
           </div>
         </div>
-        <Outlet />
       </div>
     );
   }
