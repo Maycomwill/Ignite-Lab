@@ -7,6 +7,7 @@ import { Register } from "../pages/Register";
 import { Escola } from "../pages/Escola";
 import { Turma } from "../pages/Turma";
 import { AlunoDetails } from "../components/AlunoDetails";
+import EscolaCadastro from "../pages/EscolaCadastro";
 
 export function IndexRoutes() {
   return (
@@ -26,6 +27,7 @@ export function IndexRoutes() {
           }
         />
         <Route path="/" element={<Welcome />}>
+          <Route path="/escolas/cadastro" element={<EscolaCadastro />} />
           <Route path="/escolas/:escolaId" element={<Escola />}>
             <Route path=":turmaId" element={<Turma />}>
               <Route path=":alunoId" element={<AlunoDetails />} />

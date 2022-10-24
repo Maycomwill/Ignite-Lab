@@ -6,7 +6,12 @@ import { Text } from "../components/Text";
 import { escolaData } from "../services/fetchData";
 
 export function Home() {
+
   const navigate = useNavigate();
+
+  function handleCadastroScreen() {
+    navigate('/escolas/cadastro')
+  }
 
   return (
     <>
@@ -16,7 +21,7 @@ export function Home() {
           <div className="flex flex-1 justify-between pb-4">
           <Text size="lg">Escolas cadastradas:</Text>
           <div>
-          <Button size="sm">Cadastrar escola</Button>
+          <Button onClick={handleCadastroScreen} size="sm">Cadastrar escola</Button>
           </div>
           </div>
           <div className="flex gap-4">

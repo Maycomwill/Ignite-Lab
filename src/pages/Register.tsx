@@ -159,9 +159,6 @@ export function Register(): RegisterProps {
             />
           </TextInput.Root>
         </label>
-
-        <label htmlFor="remember" className="flex items-center gap-2"></label>
-
         <Button type="submit">Cadastrar-se</Button>
       </form>
       <footer className="mt-4 flex flex-col items-center gap-2 mb-8"></footer>
