@@ -24,14 +24,14 @@ export function Welcome() {
 
   if (user) {
     return (
-      <div className="flex h-screen w-screen justify-start items-center flex-col gap-4 bg-gray-900">
+      <div className="flex h-full w-full justify-start items-center flex-col gap-4 bg-gray-900">
         <Home />
       </div>
     );
   } else {
     return (
       <div>
-        <div className="flex w-screen h-screen items-center justify-center bg-gray-900">
+        <div className="flex w-full h-full items-center justify-center bg-gray-900">
           <div
             id="left-side"
             className="flex flex-1 flex-col items-center gap-4 justify-center px-4 py-4"

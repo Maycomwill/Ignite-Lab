@@ -51,7 +51,7 @@ export function LogIn() {
   }
   if (loading) {
     return (
-      <div className="h-screen w-full bg-gray-900 flex flex-col items-center justify-center">
+      <div className="h-full w-full bg-gray-900 flex flex-col items-center justify-center">
         <Text size="xlg" className="animate-pulse">
           Loading...
         </Text>
@@ -63,7 +63,7 @@ export function LogIn() {
   }
 
   return (
-    <div className="w-full h-screen text-gray-100 flex flex-col items-center justify-center bg-gray-900">
+    <div className="w-full h-full text-gray-100 flex flex-col items-center justify-center bg-gray-900">
       <header className="flex items-center flex-col">
         <Heading size="xlg" className="text-gray-100">
           Caderneta Digital

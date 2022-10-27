@@ -23,7 +23,7 @@ export function Escola() {
         <div className="flex flex-col gap-2 items-start">
           <Heading size="lg">{escola?.name}</Heading>
         </div>
-        <div id="alunos-data" className="flex items-center">
+        <div id="turma-data" className="flex items-center">
           <div>
             <ul role={"list"} className="flex gap-2 list-none max-h-[80%]">
               {turma.map((turma) => {

@@ -17,7 +17,7 @@ export function Header() {
 
   if (user) {
     return (
-      <div className="flex w-screen items-center justify-between gap-4">
+      <div className="flex w-full items-center justify-between gap-4">
         <Heading>Bem vindo (a),</Heading>
         <div className="flex w-[30%] gap-2 items-center justify-end">
           <Text>{user.email}</Text>
