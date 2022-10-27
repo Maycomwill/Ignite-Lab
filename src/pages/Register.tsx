@@ -9,7 +9,14 @@ import { Heading } from "../components/Heading";
 import { SVGHome } from "../components/SVGHome";
 import { EnvelopeSimple, Lock, Spinner, UserCircle } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  setDoc,
+} from "firebase/firestore";
+import MainFooter from "../components/MainFooter";
 
 interface RegisterProps extends ReactElement {}
 
@@ -34,17 +41,19 @@ export function Register(): RegisterProps {
             handleLoginRedirect();
           })
           .then(async function createUserInDB() {
-            const user = await addDoc(docCollectionRef, {
-              name: name,
-              lastName: lastName,
-              email: email,
-              createdAt: serverTimestamp(),
-            });
-            console.log(user);
+            const user = await setDoc(
+              doc(docCollectionRef, auth.currentUser?.uid),
+              {
+                name: name,
+                lastName: lastName,
+                email: email,
+                createdAt: serverTimestamp(),
+              }
+            );
           })
           .catch((e) => {
             console.log("Error ao criar usuário", e);
-            alert("Usuário já existente")
+            alert("Usuário já existente");
             setLoading(false);
           });
     } else {
@@ -82,9 +91,9 @@ export function Register(): RegisterProps {
       </header>
       <form
         onSubmit={handleSignIn}
-        className="flex flex-col gap-4 items-stretch mt-8 w-full max-w-sm"
+        className="flex flex-col gap-6 items-stretch mt-8 w-full max-w-sm"
       >
-        <label htmlFor="name" className="flex flex-col gap-3">
+        <label htmlFor="name" className="flex flex-col gap-2">
           <Text className="text-sm font-semibold">Seu Nome</Text>
           <TextInput.Root>
             <TextInput.Icon>
@@ -99,7 +108,7 @@ export function Register(): RegisterProps {
             />
           </TextInput.Root>
         </label>
-        <label htmlFor="sobrename" className="flex flex-col gap-3">
+        <label htmlFor="sobrename" className="flex flex-col gap-2">
           <Text className="text-sm font-semibold">Seu sobrenome</Text>
           <TextInput.Root>
             <TextInput.Icon>
@@ -114,7 +123,7 @@ export function Register(): RegisterProps {
             />
           </TextInput.Root>
         </label>
-        <label htmlFor="email" className="flex flex-col gap-3">
+        <label htmlFor="email" className="flex flex-col gap-2">
           <Text className="text-sm font-semibold">Endereço de E-mail</Text>
           <TextInput.Root>
             <TextInput.Icon>
@@ -129,7 +138,7 @@ export function Register(): RegisterProps {
             />
           </TextInput.Root>
         </label>
-        <label htmlFor="password" className="flex flex-col gap-3">
+        <label htmlFor="password" className="flex flex-col gap-2">
           <Text className="text-sm font-semibold">Sua senha</Text>
           <TextInput.Root>
             <TextInput.Icon>
@@ -144,7 +153,7 @@ export function Register(): RegisterProps {
             />
           </TextInput.Root>
         </label>
-        <label htmlFor="repassword" className="flex flex-col gap-3">
+        <label htmlFor="repassword" className="flex flex-col gap-2">
           <Text className="text-sm font-semibold">Confirme sua senha</Text>
           <TextInput.Root>
             <TextInput.Icon>
@@ -161,7 +170,9 @@ export function Register(): RegisterProps {
         </label>
         <Button type="submit">Cadastrar-se</Button>
       </form>
-      <footer className="mt-4 flex flex-col items-center gap-2 mb-8"></footer>
+      <footer className="mt-4 flex flex-col items-center gap-2 mb-2">
+      <MainFooter />
+      </footer>
     </div>
   );
 }

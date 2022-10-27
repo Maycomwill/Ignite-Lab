@@ -1,16 +1,23 @@
+import { useContext, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Button } from "../components/Button";
 import { EscolaCard } from "../components/EscolaCard";
 import { Header } from "../components/Header";
+import MainFooter from "../components/MainFooter";
 import { Text } from "../components/Text";
-import { escolaData } from "../services/fetchData";
+import { escolaData, getSchools } from "../services/fetchData";
 
 export function Home() {
   const navigate = useNavigate();
+  // const DataContextConsumer = useContext(DataContext)
 
   function handleCadastroScreen() {
     navigate("/escolas/cadastro");
   }
+
+  useEffect(() => {
+    getSchools();
+  }, []);
 
   return (
     <>
@@ -50,6 +57,7 @@ export function Home() {
         </div>
         <Outlet />
       </div>
+      <MainFooter />
     </>
   );
 }

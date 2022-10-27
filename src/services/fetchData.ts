@@ -1,4 +1,22 @@
-export const escolaData = [
+import { collection, getDocs } from "firebase/firestore";
+import React, { useState } from "react";
+import { db } from "./firebaseConfig";
+
+const schoolsCollection = collection(db, "schools")
+
+export async function getSchools() {
+  const [schoolsData, setSchoolsData] = useState([])
+  const DataContext = React.createContext(schoolsData);
+  
+  await getDocs(schoolsCollection).then((snapshot) => {
+    snapshot.docs.map((doc: any) => {
+      setSchoolsData({ ...doc.data(), id: doc.id})
+    })
+    console.log(schoolsData)
+  })
+}
+
+export let escolaData = [
   {
     "id": 1,
     "name": "EREM Fernando Mota",

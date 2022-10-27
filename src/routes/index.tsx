@@ -8,6 +8,7 @@ import { Escola } from "../pages/Escola";
 import { Turma } from "../pages/Turma";
 import { AlunoDetails } from "../pages/AlunoDetails";
 import EscolaCadastro from "../pages/EscolaCadastro";
+import { AlunoCadastro } from "../pages/AlunoCadastro";
 
 export function IndexRoutes() {
   return (
@@ -33,6 +34,7 @@ export function IndexRoutes() {
           </Route>
           <Route path=":alunoId" element={<AlunoDetails />} />
         </Route>
+        <Route path="/alunos/cadastro" element={<AlunoCadastro />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/register" element={<Register />} />
       </Routes>
