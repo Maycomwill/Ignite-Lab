@@ -1,5 +1,5 @@
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { Text } from "../components/Text";
 import { db } from "./firebaseConfig";
 
@@ -14,12 +14,13 @@ export const loginWithGoogle = async () => {
       const token = credential?.accessToken;
       const user = result.user;
       console.log(user);
-      addDoc(docCollectionRef, {
+      setDoc(doc(docCollectionRef, auth.currentUser?.uid), {
         name: user.displayName,
         lasName: user.displayName,
         photoURL: user.photoURL,
         email: user.email,
         createdAt: serverTimestamp(),
+        userId: auth.currentUser?.uid,
       });
     })
     .catch((error) => {

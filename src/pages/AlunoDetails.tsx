@@ -7,7 +7,7 @@ import { Button } from "../components/Button";
 export function AlunoDetails() {
   const params = useParams();
   const navigate = useNavigate();
-  const aluno = getAlunoDetail(parseInt(params.alunoId, 10));
+  const aluno = getAlunoDetail(parseInt(`${params.alunoId}`, 10));
 
   return (
     <div className="flex flex-1 items-center justify-center">

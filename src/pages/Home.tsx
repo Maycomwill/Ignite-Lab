@@ -14,11 +14,7 @@ export function Home() {
   function handleCadastroScreen() {
     navigate("/escolas/cadastro");
   }
-
-  useEffect(() => {
-    getSchools();
-  }, []);
-
+  
   return (
     <>
       <Header />

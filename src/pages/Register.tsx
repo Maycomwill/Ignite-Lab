@@ -10,7 +10,6 @@ import { SVGHome } from "../components/SVGHome";
 import { EnvelopeSimple, Lock, Spinner, UserCircle } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
 import {
-  addDoc,
   collection,
   doc,
   serverTimestamp,
@@ -48,6 +47,7 @@ export function Register(): RegisterProps {
                 lastName: lastName,
                 email: email,
                 createdAt: serverTimestamp(),
+                userId: auth.currentUser?.uid,
               }
             );
           })

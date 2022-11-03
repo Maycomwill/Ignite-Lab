@@ -6,7 +6,6 @@ const schoolsCollection = collection(db, "schools")
 
 export async function getSchools() {
   const [schoolsData, setSchoolsData] = useState([])
-  const DataContext = React.createContext(schoolsData);
   
   await getDocs(schoolsCollection).then((snapshot) => {
     snapshot.docs.map((doc: any) => {

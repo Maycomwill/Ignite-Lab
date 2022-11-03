@@ -12,8 +12,8 @@ import { auth } from "../services/firebaseConfig";
 export function Escola() {
   const navigate = useNavigate();
   const params = useParams();
-  const escola = getEscola(parseInt(params.escolaId, 10));
-  const turma = getTurmas(parseInt(params.escolaId, 10));
+  const escola = getEscola(parseInt(`${params.escolaId}`, 10));
+  const turma = getTurmas(parseInt(`${params.escolaId}`, 10));
 
   const [user, loading, error] = useAuthState(auth);
 

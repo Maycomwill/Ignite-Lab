@@ -1,19 +1,18 @@
-import { Books, User } from "phosphor-react";
+import { Pencil, User } from "phosphor-react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button } from "../components/Button";
 import { Loading } from "../components/Loading";
 import { Text } from "../components/Text";
 import { getAlunos, getEscola, getTurmas } from "../services/fetchData";
 import { auth } from "../services/firebaseConfig";
-import { AlunoCard } from "../components/AlunoCard";
 import { TabelaDeAlunos } from "../components/TabelaDeAlunos";
 
 export function Turma() {
   const navigate = useNavigate();
   const params = useParams();
-  const turma = getTurmas(parseInt(params.escolaId, 10));
-  const alunos = getAlunos(parseInt(params.turmaId, 10));
+  const turma = getTurmas(parseInt(`${params.escolaId}`, 10));
+  const alunos = getAlunos(parseInt(`${params.turmaId}`, 10));
 
   const [user, loading, error] = useAuthState(auth);
 
