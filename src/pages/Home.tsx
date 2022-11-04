@@ -9,7 +9,7 @@ import { escolaData, getSchools } from "../services/fetchData";
 
 export function Home() {
   const navigate = useNavigate();
-  // const DataContextConsumer = useContext(DataContext)
+
 
   function handleCadastroScreen() {
     navigate("/escolas/cadastro");
@@ -18,7 +18,7 @@ export function Home() {
   return (
     <>
       <Header />
-      <div className="w-full flex flex-col gap-4">
+      <div className="w-full flex flex-col gap-4 p-4">
         <div className="flex flex-col">
           <div className="flex flex-1 justify-between pb-4">
             <Text size="lg">Escolas cadastradas:</Text>

@@ -1,6 +1,7 @@
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../services/firebaseConfig";
+import { useUserContext } from '../hooks/useUserContext'
 
 import { Text } from "../components/Text";
 import { Spinner } from "phosphor-react";
@@ -15,6 +16,7 @@ import MainFooter from "../components/MainFooter";
 
 export function Welcome() {
   const navigate = useNavigate();
+  // const { user } = useUserContext();
 
   const [user, loading, error] = useAuthState(auth);
 
@@ -30,30 +32,11 @@ export function Welcome() {
     );
   } else {
     return (
-      <div>
-        <div className="flex w-full h-full items-center justify-center bg-gray-900">
-          <div
-            id="left-side"
-            className="flex flex-1 flex-col items-center gap-4 justify-center px-4 py-4"
-          >
-            <div className="flex w-full items-center justify-center">
-              <Heading size="xlg">
-                Bem vindo a{" "}
-                <span className="text-green-500">Caderneta Digital</span>
-              </Heading>
-            </div>
-            <div className="w-[80%] flex flex-col gap-4 items-start">
-              <Text className="text-justify">
-                Aqui você tem a simplicidade de organizar as informações sobre
-                suas turmas, alunos, notas e frequências.
-              </Text>
-              <Text>
-                Plataforma desenvolvida de professor para professores!
-              </Text>
-            </div>
-            <SVGHome width={400} height={400} />
+      <div className="pt-16">
+        <div className="flex w-full h-full items-center justify-between bg-gray-900">
+          <div className="w-[50%] flex items-center justify-center">
+            <SVGHome width={450} height={450} />
           </div>
-
           <div
             id="right-side"
             className="w-[50%] flex flex-col items-center justify-center px-4 py-4"
@@ -61,7 +44,9 @@ export function Welcome() {
             <LogIn />
           </div>
         </div>
+        <div className="">
         <MainFooter />
+        </div>
       </div>
     );
   }

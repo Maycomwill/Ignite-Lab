@@ -5,6 +5,7 @@ import { ButtonHTMLAttributes, ReactNode } from "react";
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   asChild?: boolean;
+  version?: "PRIMARY" | "SECONDARY";
   size?: "xsm" | "sm" | "md" | "lg";
   textSize?: "xsm" | "sm" | "md" | "lg";
   className?: string;
@@ -15,6 +16,7 @@ export function Button({
   asChild,
   className,
   textSize,
+  version = "PRIMARY",
   size = "md",
   ...props
 }: ButtonProps) {
@@ -29,13 +31,18 @@ export function Button({
           "py-1 px-2": size === "sm",
           "py-3 px-4": size === "md",
           "py-4 px-6": size === "lg",
-          
         },
         {
           "text-xsm": textSize === "xsm",
           "text-sm": textSize === "sm",
           "text-md": textSize === "md",
           "text-lg": textSize === "lg",
+        },
+        {
+          "bg-red-500": version === "SECONDARY",
+          "hover:bg-red-800": version === "SECONDARY",
+          "ring-red-300": version === "SECONDARY",
+          "text-gray-100": version === "SECONDARY",
         },
         className
       )}

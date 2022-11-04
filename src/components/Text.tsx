@@ -3,7 +3,7 @@ import { Slot } from "@radix-ui/react-slot";
 import { ReactNode } from "react";
 
 export interface TextProps extends React.HTMLAttributes<HTMLSpanElement> {
-  size?: "xsm" | "sm" | "md" | "lg" | "xlg";
+  size?: "xxs" | "xsm" | "sm" | "md" | "lg" | "xlg";
   children: ReactNode;
   asChild?: boolean;
   className?: string;
@@ -36,6 +36,7 @@ export function Text({
           "font-black": weight === "black",
         },
         {
+          "text-xxs" : size === "xxs",
           "text-xsm": size === "xsm",
           "text-sm": size === "sm",
           "text-md": size === "md",

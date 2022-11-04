@@ -1,38 +1,25 @@
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "../services/firebaseConfig";
 
 import { CheckedState } from "@radix-ui/react-checkbox";
-import { Checkbox } from "../components/Checkbox";
-import { EnvelopeSimple, Lock, Spinner } from "phosphor-react";
+import { Spinner } from "phosphor-react";
 import { Button } from "../components/Button";
 import { Heading } from "../components/Heading";
-import { TextInput } from "../components/TextInput";
 import { Text } from "../components/Text";
 import { SVGGoogle } from "../components/SVGGoogle";
-import { loginWithGoogle } from "../services/loginWithGoogle";
-import LoginWithGoogle from "../components/LoginWithGoogle";
-
+// import { loginWithGoogle } from "../services/loginWithGoogle";
+import { useUserContext } from "../hooks/useUserContext";
 
 export function LogIn() {
-  const [isRememberChecked, setIsRememberChecked] = useState<CheckedState>();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  
+  const { signInWithGoogle, userData } = useUserContext()
 
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
 
-  async function handleSignInWithEmailandPassword(e: FormEvent) {
-    e.preventDefault();
-
-    await signInWithEmailAndPassword(email, password).then(
-      handleLoggedRedirect
-    );
-  }
 
   function handleLoggedRedirect() {
     if (user) {
@@ -64,81 +51,36 @@ export function LogIn() {
 
   return (
     <div className="w-full h-full text-gray-100 flex flex-col items-center justify-center bg-gray-900">
-      <header className="flex items-center flex-col">
-        <Heading size="xlg" className="text-gray-100">
-          Caderneta Digital
+      <header className="flex items-center flex-col w-full">
+        <Heading size="xlg">
+          Bem vindo a <span className="text-green-500">Caderneta Digital</span>
         </Heading>
-        <Text size="md" className="text-gray-200">
-          Faça login e comece a usar!
-        </Text>
       </header>
-      <form
-        onSubmit={handleSignInWithEmailandPassword}
-        className="flex flex-col gap-4 items-stretch mt-8 w-full max-w-sm"
-      >
-        <label htmlFor="email" className="flex flex-col gap-3">
-          <Text className="text-sm font-semibold">Endereço de E-mail</Text>
-          <TextInput.Root>
-            <TextInput.Icon>
-              <EnvelopeSimple />
-            </TextInput.Icon>
-            <TextInput.Input
-              autoComplete="email"
-              onChange={(e) => setEmail(e.target.value)}
-              type="email"
-              id="email"
-              placeholder="Digite seu e-mail"
-            />
-          </TextInput.Root>
-        </label>
-        <label htmlFor="password" className="flex flex-col gap-3">
-          <Text className="text-sm font-semibold">Sua senha</Text>
-          <TextInput.Root>
-            <TextInput.Icon>
-              <Lock />
-            </TextInput.Icon>
-            <TextInput.Input
-              autoComplete="password"
-              onChange={(e) => setPassword(e.target.value)}
-              type="password"
-              id="password"
-              placeholder="Digite sua senha"
-            />
-          </TextInput.Root>
-        </label>
+      <section className="mt-4 w-full flex justify-center items-center">
+        <div className="flex flex-col items-center justify-center gap-4 px-4">
+          <div className="w-[80%] flex flex-col gap-4 items-start text-justify">
+            <Text>
+              Aqui você tem a simplicidade de organizar as informações sobre
+              suas turmas, alunos, notas e frequências.
+            </Text>
+            <Text>Plataforma desenvolvida de professor para professores!</Text>
+            <Text>
+              Para fazer login na plataforma, é necessário uma conta google.
+            </Text>
+            <Text>
+              Basta clicar no botão abaixo, selecionar uma conta e pronto, você
+              já faz parte da nossa plataforma, aproveite todos os recursos
+              disponíveis!
+            </Text>
+          </div>
 
-        <label htmlFor="remember" className="flex items-center gap-2">
-          <Checkbox
-            id="remember"
-            checked={isRememberChecked}
-            onCheckedChange={setIsRememberChecked}
-          />
-          <Text size="sm" className="text-gray-200">
-            Lembrar-me de mim por 30 dias!
-          </Text>
-        </label>
-
-        <Button type="submit">Entrar na plataforma</Button>
-      </form>
-      <footer className="mt-4 flex flex-col items-center gap-2 mb-8">
-        <LoginWithGoogle />
-        <Text asChild size="xsm">
-          <a
-            href=""
-            className="text-gray-400 underline transitions-colors hover:text-gray-200"
-          >
-            Esqueceu sua senha?
-          </a>
-        </Text>
-        <Text asChild size="xsm">
-          <Link
-            to="/register"
-            className="text-gray-400 underline transitions-colors hover:text-gray-200"
-          >
-            Não possui conta? Crie uma agora!
-          </Link>
-        </Text>
-      </footer>
+          <div className="w-[50%] pt-8">
+            <Button version="PRIMARY" onClick={signInWithGoogle} className="flex gap-4">
+              <SVGGoogle width={30} height={30} /> Login com Google
+            </Button>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

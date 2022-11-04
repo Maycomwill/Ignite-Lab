@@ -14,6 +14,7 @@ export const loginWithGoogle = async () => {
       const token = credential?.accessToken;
       const user = result.user;
       console.log(user);
+      
       setDoc(doc(docCollectionRef, auth.currentUser?.uid), {
         name: user.displayName,
         lasName: user.displayName,
