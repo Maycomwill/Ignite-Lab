@@ -44,6 +44,7 @@ export function UserContextProvider({ children }: UserProviderProps) {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential?.accessToken;
         const user = result.user;
+        console.log(user.displayName)
         setDoc(doc(docCollectionRef, auth.currentUser?.uid), {
           name: user.displayName,
           lasName: user.displayName,
