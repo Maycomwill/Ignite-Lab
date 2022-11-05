@@ -34,15 +34,11 @@ export const UserContext = createContext({} as UserContextDataProps);
 
 export function UserContextProvider({ children }: UserProviderProps) {
   const [userData, setUserData] = useState<UserProps | null>(null);
-  const [user, loading, error] = useAuthState(auth)
+  const [user, loading, error] = useAuthState(auth);
 
   async function handleWithUserDataFromDb() {
-    console.log("aaa")
     const docCollectionRef = collection(db, "users");
-    const q = query(
-      docCollectionRef,
-      where("userId", "==", `${user!.uid}`)
-      );
+    const q = query(docCollectionRef, where("userId", "==", `${user!.uid}`));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       const result = doc.data() as UserProps;
@@ -56,13 +52,11 @@ export function UserContextProvider({ children }: UserProviderProps) {
   }
 
   useEffect(() => {
-    console.log(user)
-    if(user){
-      handleWithUserDataFromDb()
+    if (user) {
+      handleWithUserDataFromDb();
     } else {
-
     }
-  }, [user])
+  }, [user]);
 
   const signInWithGoogle = async () => {
     const docCollectionRef = collection(db, "users");
@@ -96,7 +90,7 @@ export function UserContextProvider({ children }: UserProviderProps) {
         user,
         signInWithGoogle,
         userData,
-        handleWithUserDataFromDb
+        handleWithUserDataFromDb,
       }}
     >
       {children}

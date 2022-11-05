@@ -9,6 +9,7 @@ import {
   where,
 } from "firebase/firestore";
 import { createContext, ReactNode, useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../services/firebaseConfig";
 
 interface SchoolsProps {
@@ -18,7 +19,8 @@ interface SchoolsProps {
 }
 
 export interface SchoolsContextDataProps {
-  schoolData: SchoolsProps;
+  user: any;
+  schoolData: SchoolsProps[];
   handleWithSchoolDataFromDb: () => void;
 }
 
@@ -29,32 +31,38 @@ interface SchoolsProviderProps {
 export const SchoolsContext = createContext({} as SchoolsContextDataProps);
 
 export function SchoolsContextProvider({ children }: SchoolsProviderProps) {
-  const [schoolData, setSchoolData] = useState<SchoolsProps>({} as SchoolsProps);
+  const [user, loading, error] = useAuthState(auth);
+  const [schoolData, setSchoolData] = useState<SchoolsProps[]>([]);
 
   async function handleWithSchoolDataFromDb() {
     const docCollectionRef = collection(db, "schools");
-    const q = query(
-      docCollectionRef,
-      where("userId", "==", `${auth.currentUser?.uid}`)
-    );
+    const q = query(docCollectionRef, where("userId", "==", `${user?.uid}`));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      const result = doc.data() as SchoolsProps;
-      setSchoolData({
-        schoolName: result.schoolName,
-        userId: result.userId,
-        address: result.address
-      });
+      setSchoolData((prev) => [
+        ...prev,
+        {
+          schoolName: doc.data().schoolName,
+          userId: doc.data().userId,
+          address: doc.data().address,
+        },
+      ]);
     });
   }
 
-    useEffect(() => {
+  useEffect(() => {
+    if (user) {
+      setSchoolData([]);
+      console.log(schoolData);
       handleWithSchoolDataFromDb();
-    }, []);
+    } else {
+    }
+  }, [user]);
 
   return (
     <SchoolsContext.Provider
       value={{
+        user,
         schoolData,
         handleWithSchoolDataFromDb,
       }}
@@ -63,4 +71,3 @@ export function SchoolsContextProvider({ children }: SchoolsProviderProps) {
     </SchoolsContext.Provider>
   );
 }
-

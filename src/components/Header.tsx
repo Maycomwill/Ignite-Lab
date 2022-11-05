@@ -19,8 +19,8 @@ export function Header() {
 
   if (userData) {
     return (
-      <div className="flex w-full items-center justify-between gap-4 p-4">
-        <Heading>Bem vindo (a),</Heading>
+      <div className="flex w-full items-center justify-between gap-4 p-4 border-b-4 rounded border-green-500">
+        <Heading>Caderneta Digital</Heading>
         <div className="flex w-[30%] gap-2 items-center justify-end">
           <Text>{userData?.name}</Text>
           <img

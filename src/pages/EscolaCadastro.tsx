@@ -3,7 +3,6 @@ import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import {
   BookBookmark,
   Buildings,
-  ChalkboardTeacher,
   Hash,
   MapPin,
 } from "phosphor-react";
@@ -14,11 +13,13 @@ import { Heading } from "../components/Heading";
 import { Loading } from "../components/Loading";
 import { Text } from "../components/Text";
 import { TextInput } from "../components/TextInput";
+import { useSchool } from "../hooks/useSchools";
 import { db } from "../services/firebaseConfig";
 
 interface EscolaCadastroProps extends ReactElement {}
 
 function EscolaCadastro(): EscolaCadastroProps {
+  const {user, schoolData} = useSchool();
   const [schoolName, setSchoolName] = useState("");
   const [schoolAddress, setSchoolAddress] = useState("");
   const [schoolNumber, setSchoolNumber] = useState("");
@@ -41,6 +42,7 @@ function EscolaCadastro(): EscolaCadastroProps {
       CEPAddres: schoolCEP,
       createdAt: serverTimestamp(),
       userId: auth.currentUser?.uid,
+      
     });
     console.log(schoolRegister);
     navigate("/");
