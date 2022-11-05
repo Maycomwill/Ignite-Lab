@@ -5,16 +5,17 @@ import { EscolaCard } from "../components/EscolaCard";
 import { Header } from "../components/Header";
 import MainFooter from "../components/MainFooter";
 import { Text } from "../components/Text";
+import { useUser } from "../hooks/useUser";
 import { escolaData, getSchools } from "../services/fetchData";
 
 export function Home() {
+  const { userData } = useUser();
   const navigate = useNavigate();
-
 
   function handleCadastroScreen() {
     navigate("/escolas/cadastro");
   }
-  
+
   return (
     <>
       <Header />

@@ -11,15 +11,14 @@ import { Heading } from "../components/Heading";
 import { Text } from "../components/Text";
 import { SVGGoogle } from "../components/SVGGoogle";
 // import { loginWithGoogle } from "../services/loginWithGoogle";
-import { useUserContext } from "../hooks/useUserContext";
+import { useUser } from "../hooks/useUser";
 
 export function LogIn() {
   const navigate = useNavigate();
-  const { signInWithGoogle, userData } = useUserContext()
+  const { signInWithGoogle, userData } = useUser();
 
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
-
 
   function handleLoggedRedirect() {
     if (user) {
@@ -75,7 +74,11 @@ export function LogIn() {
           </div>
 
           <div className="w-[50%] pt-8">
-            <Button version="PRIMARY" onClick={signInWithGoogle} className="flex gap-4">
+            <Button
+              version="PRIMARY"
+              onClick={signInWithGoogle}
+              className="flex gap-4"
+            >
               <SVGGoogle width={30} height={30} /> Login com Google
             </Button>
           </div>

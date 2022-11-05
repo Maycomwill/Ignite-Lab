@@ -1,5 +1,5 @@
 import MainFooter from "./components/MainFooter";
-import { UserContextProvider } from "./contexts/UserContext";
+import AppProvider from "./hooks/index";
 import { LogIn } from "./pages/LogIn";
 import { IndexRoutes } from "./routes";
 import "./styles/main.css";
@@ -7,9 +7,9 @@ import "./styles/main.css";
 function App() {
   return (
     <div className="flex flex-col gap-2">
-      <UserContextProvider>
+      <AppProvider>
         <IndexRoutes />
-      </UserContextProvider>
+      </AppProvider>
     </div>
   );
 }

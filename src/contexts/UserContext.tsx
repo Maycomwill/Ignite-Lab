@@ -1,6 +1,15 @@
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { collection, doc, getDocs, query, serverTimestamp, setDoc, where } from "firebase/firestore";
-import { createContext, ReactNode, useState } from "react";
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  serverTimestamp,
+  setDoc,
+  where,
+} from "firebase/firestore";
+import { createContext, ReactNode, useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../services/firebaseConfig";
 
 interface UserProps {
@@ -11,8 +20,10 @@ interface UserProps {
 }
 
 export interface UserContextDataProps {
-  userData: UserProps;
+  user: any;
+  userData: UserProps | null;
   signInWithGoogle: () => Promise<void>;
+  handleWithUserDataFromDb: () => void;
 }
 
 interface UserProviderProps {
@@ -22,29 +33,47 @@ interface UserProviderProps {
 export const UserContext = createContext({} as UserContextDataProps);
 
 export function UserContextProvider({ children }: UserProviderProps) {
-  const [userData, setUserData] = useState<UserProps>({} as UserProps);
+  const [userData, setUserData] = useState<UserProps | null>(null);
+  const [user, loading, error] = useAuthState(auth)
 
   async function handleWithUserDataFromDb() {
+    console.log("aaa")
     const docCollectionRef = collection(db, "users");
-    const q = query(docCollectionRef, where("userId", "==", `${auth.currentUser?.uid}`))
-    
+    const q = query(
+      docCollectionRef,
+      where("userId", "==", `${user!.uid}`)
+      );
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      console.log(doc.id, "=>", doc.data())
-    })
+      const result = doc.data() as UserProps;
+      setUserData({
+        name: result.name,
+        email: result.email,
+        userId: result.userId,
+        photoURL: result.photoURL,
+      });
+    });
   }
+
+  useEffect(() => {
+    console.log(user)
+    if(user){
+      handleWithUserDataFromDb()
+    } else {
+
+    }
+  }, [user])
 
   const signInWithGoogle = async () => {
     const docCollectionRef = collection(db, "users");
     const provider = new GoogleAuthProvider();
-
     const auth = getAuth();
+
     signInWithPopup(auth, provider)
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential?.accessToken;
         const user = result.user;
-        console.log(user.displayName)
         setDoc(doc(docCollectionRef, auth.currentUser?.uid), {
           name: user.displayName,
           lasName: user.displayName,
@@ -60,15 +89,14 @@ export function UserContextProvider({ children }: UserProviderProps) {
         const email = error.customData.email;
         const credential = GoogleAuthProvider.credentialFromError(error);
       });
-      handleWithUserDataFromDb()
-      
-    return;
   };
   return (
     <UserContext.Provider
       value={{
+        user,
         signInWithGoogle,
         userData,
+        handleWithUserDataFromDb
       }}
     >
       {children}

@@ -1,7 +1,7 @@
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../services/firebaseConfig";
-import { useUserContext } from '../hooks/useUserContext'
+import { useUser } from "../hooks/useUser";
 
 import { Text } from "../components/Text";
 import { Spinner } from "phosphor-react";
@@ -16,13 +16,7 @@ import MainFooter from "../components/MainFooter";
 
 export function Welcome() {
   const navigate = useNavigate();
-  // const { user } = useUserContext();
-
-  const [user, loading, error] = useAuthState(auth);
-
-  if (loading && !user) {
-    <Loading />;
-  }
+  const { user } = useUser();
 
   if (user) {
     return (
@@ -45,7 +39,7 @@ export function Welcome() {
           </div>
         </div>
         <div className="">
-        <MainFooter />
+          <MainFooter />
         </div>
       </div>
     );
