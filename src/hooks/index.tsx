@@ -1,17 +1,20 @@
-import React, { ReactNode, ReactPortal } from "react";
+import { ReactNode } from "react";
 
 import { UserContextProvider } from "../contexts/UserContext";
 import { SchoolsContextProvider } from "../contexts/SchoolsContext";
+import { ClassesContextProvider } from "../contexts/ClassesContext";
 
 interface AppProviderProps {
   children: ReactNode;
 }
 
-function AppProvider({children}: AppProviderProps) {
+function AppProvider({ children }: AppProviderProps) {
   return (
     <UserContextProvider>
       <SchoolsContextProvider>
-        {children}
+        <ClassesContextProvider>
+          {children}
+        </ClassesContextProvider>
       </SchoolsContextProvider>
     </UserContextProvider>
   );

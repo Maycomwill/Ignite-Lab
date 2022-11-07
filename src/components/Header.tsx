@@ -1,4 +1,5 @@
 import { signOut } from "firebase/auth";
+import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../hooks/useUser";
@@ -17,10 +18,17 @@ export function Header() {
     navigate("/");
   };
 
-  if (userData) {
+  if (userData?.photoURL === auth.currentUser?.photoURL) {
     return (
       <div className="flex w-full items-center justify-between gap-4 p-4 border-b-4 rounded border-green-500">
-        <Heading>Caderneta Digital</Heading>
+        <Heading>
+          <a
+            href="/"
+            className="hover:text-green-500 transition-colors duration-500"
+          >
+            Caderneta Digital
+          </a>
+        </Heading>
         <div className="flex w-[30%] gap-2 items-center justify-end">
           <Text>{userData?.name}</Text>
           <img

@@ -54,8 +54,7 @@ export function UserContextProvider({ children }: UserProviderProps) {
   useEffect(() => {
     if (user) {
       handleWithUserDataFromDb();
-    } else {
-    }
+    } else {}
   }, [user]);
 
   const signInWithGoogle = async () => {

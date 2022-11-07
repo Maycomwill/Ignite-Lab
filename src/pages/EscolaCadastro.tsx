@@ -1,12 +1,13 @@
 import { getAuth } from "firebase/auth";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import {
-  BookBookmark,
-  Buildings,
-  Hash,
-  MapPin,
-} from "phosphor-react";
-import { FormEvent, ReactElement, useState } from "react";
+  collection,
+  addDoc,
+  serverTimestamp,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
+import { BookBookmark, Buildings, Hash, MapPin } from "phosphor-react";
+import { FormEvent, ReactElement, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components/Button";
 import { Heading } from "../components/Heading";
@@ -19,11 +20,13 @@ import { db } from "../services/firebaseConfig";
 interface EscolaCadastroProps extends ReactElement {}
 
 function EscolaCadastro(): EscolaCadastroProps {
-  const {user, schoolData} = useSchool();
+  const { user, schoolData } = useSchool();
+
   const [schoolName, setSchoolName] = useState("");
   const [schoolAddress, setSchoolAddress] = useState("");
   const [schoolNumber, setSchoolNumber] = useState("");
   const [schoolCEP, setSchoolCEP] = useState("");
+  const [schoolId, setSchoolId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -34,19 +37,30 @@ function EscolaCadastro(): EscolaCadastroProps {
   async function handleSchoolRegister(e: FormEvent) {
     e.preventDefault();
     setLoading(true);
-    alert("Escola cadastrada");
     const schoolRegister = await addDoc(docCollectionRef, {
       schoolName: schoolName,
+      userId: auth.currentUser?.uid,
       address: schoolAddress,
       numberAddress: schoolNumber,
       CEPAddres: schoolCEP,
       createdAt: serverTimestamp(),
-      userId: auth.currentUser?.uid,
-      
     });
-    console.log(schoolRegister);
-    navigate("/");
-    setLoading(false);
+      setSchoolId(schoolRegister.id)
+    }
+    useEffect(() => {
+      if(schoolId !== null){
+        addingSchoolIdToTheDocumentCreated() 
+      }
+    }, [schoolId])
+
+    async function addingSchoolIdToTheDocumentCreated() {
+      const docRef = doc(db, "schools", `${schoolId}`)
+      const addingSchoolIdToDBDocument = await updateDoc(docRef, {
+        schoolId: `${schoolId}`
+      });
+      setLoading(false)
+      alert("Escola cadastrada com sucesso!")
+      navigate('/')
   }
 
   if (loading) {

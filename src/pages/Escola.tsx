@@ -6,22 +6,30 @@ import { Button } from "../components/Button";
 import { Heading } from "../components/Heading";
 import { Loading } from "../components/Loading";
 import { Text } from "../components/Text";
-import { getEscola, getTurmas } from "../services/fetchData";
+import { getTurmas } from "../services/fetchData";
 import { auth } from "../services/firebaseConfig";
+import { useClass } from "../hooks/useClasses";
+import { useSchool } from "../hooks/useSchools";
+import { useUser } from "../hooks/useUser";
+import { useEffect } from "react";
 
 export function Escola() {
+  const { userData } = useUser();
+  const { schoolData, handleWithSchoolDataFromDb } = useSchool();
+  const { classData, loading } = useClass();
+
   const navigate = useNavigate();
   const params = useParams();
-  const escola = getEscola(parseInt(`${params.escolaId}`, 10));
   const turma = getTurmas(parseInt(`${params.escolaId}`, 10));
 
-  const [user, loading, error] = useAuthState(auth);
-
-  if (user) {
+  if (userData?.userId) {
     return (
-      <div className=" bg-gray-900 px-4 flex flex-col items-start justify-start gap-4">
-        <div className="flex flex-col gap-2 items-start">
-          <Heading size="lg">{escola?.name}</Heading>
+      <div className=" bg-gray-900 flex flex-col items-start justify-start gap-4">
+        <div className="flex gap-2 items-center w-full justify-between">
+          <Heading>a</Heading>
+          <div>
+            <Button size="sm" onClick={() => navigate('/escolas/turmas/cadastro')}>Cadastrar turma</Button>
+          </div>
         </div>
         <div id="turma-data" className="flex items-center">
           <div>

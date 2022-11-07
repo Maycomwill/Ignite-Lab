@@ -9,6 +9,7 @@ import { Turma } from "../pages/Turma";
 import { AlunoDetails } from "../pages/AlunoDetails";
 import EscolaCadastro from "../pages/EscolaCadastro";
 import { AlunoCadastro } from "../pages/AlunoCadastro";
+import { TurmaCadastro } from "../pages/TurmaCadastro";
 
 export function IndexRoutes() {
   return (
@@ -29,6 +30,7 @@ export function IndexRoutes() {
         />
         <Route path="/" element={<Welcome />}>
           <Route path="/escolas/cadastro" element={<EscolaCadastro />} />
+        <Route path="/escolas/turmas/cadastro" element={<TurmaCadastro />} />
           <Route path="/escolas/:escolaId" element={<Escola />}>
             <Route path=":turmaId" element={<Turma />} />
           </Route>

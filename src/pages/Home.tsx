@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Button } from "../components/Button";
 import { EscolaCard } from "../components/EscolaCard";
@@ -8,7 +8,6 @@ import MainFooter from "../components/MainFooter";
 import { Text } from "../components/Text";
 import { useSchool } from "../hooks/useSchools";
 import { useUser } from "../hooks/useUser";
-import { escolaData, getSchools } from "../services/fetchData";
 
 export function Home() {
   const { userData } = useUser();
@@ -38,10 +37,10 @@ export function Home() {
                 {schoolData ? (
                   schoolData.map((escola) => {
                     return (
-                      <li key={escola.schoolName}>
+                      <li key={escola.schoolId}>
                         <EscolaCard
                           onClick={() => {
-                            navigate(`/escolas/${escola.schoolName}`);
+                            navigate(`/escolas/${escola.schoolId}`);
                           }}
                           escolaName={escola.schoolName}
                         />

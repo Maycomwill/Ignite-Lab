@@ -10,18 +10,20 @@ import {
 } from "firebase/firestore";
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useParams } from "react-router-dom";
 import { auth, db } from "../services/firebaseConfig";
 
 interface SchoolsProps {
   schoolName: string;
   userId: string;
   address: string;
+  schoolId: string | undefined;
 }
 
 export interface SchoolsContextDataProps {
   user: any;
   schoolData: SchoolsProps[];
-  handleWithSchoolDataFromDb: () => void;
+  handleWithSchoolDataFromDb: (userId: string | undefined) => void;
 }
 
 interface SchoolsProviderProps {
@@ -34,9 +36,9 @@ export function SchoolsContextProvider({ children }: SchoolsProviderProps) {
   const [user, loading, error] = useAuthState(auth);
   const [schoolData, setSchoolData] = useState<SchoolsProps[]>([]);
 
-  async function handleWithSchoolDataFromDb() {
+  async function handleWithSchoolDataFromDb(userId: string | undefined) {
     const docCollectionRef = collection(db, "schools");
-    const q = query(docCollectionRef, where("userId", "==", `${user?.uid}`));
+    const q = query(docCollectionRef, where("userId", "==", `${userId}`));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       setSchoolData((prev) => [
@@ -45,6 +47,7 @@ export function SchoolsContextProvider({ children }: SchoolsProviderProps) {
           schoolName: doc.data().schoolName,
           userId: doc.data().userId,
           address: doc.data().address,
+          schoolId: doc.data().schoolId
         },
       ]);
     });
@@ -53,8 +56,7 @@ export function SchoolsContextProvider({ children }: SchoolsProviderProps) {
   useEffect(() => {
     if (user) {
       setSchoolData([]);
-      console.log(schoolData);
-      handleWithSchoolDataFromDb();
+      handleWithSchoolDataFromDb(user?.uid);
     } else {
     }
   }, [user]);
