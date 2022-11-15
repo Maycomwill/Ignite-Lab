@@ -7,12 +7,12 @@ import { Text } from "../components/Text";
 import { getAlunos, getEscola, getTurmas } from "../services/fetchData";
 import { auth } from "../services/firebaseConfig";
 import { TabelaDeAlunos } from "../components/TabelaDeAlunos";
+import { Header } from "../components/Header";
+import MainFooter from "../components/MainFooter";
 
 export function Turma() {
   const navigate = useNavigate();
   const params = useParams();
-  const turma = getTurmas(parseInt(`${params.escolaId}`, 10));
-  const alunos = getAlunos(parseInt(`${params.turmaId}`, 10));
 
   const [user, loading, error] = useAuthState(auth);
 
@@ -32,18 +32,31 @@ export function Turma() {
     return <Loading />;
   }
   return (
-    <div className="w-full bg-gray-900 flex flex-col items-start justify-start gap-4 py-2">
-      <div id="alunos-data" className="w-[70%] bg-gray-800">
-        {!alunos ? (
-          <div>
-            <Text size="md" weight="bold">
-              Você ainda não tem alunos cadastrados nessa turma
-            </Text>
-          </div>
-        ) : (
+    <>
+      <Header />
+      <div className="w-full bg-gray-900 flex flex-col items-start justify-start gap-4 py-2 px-4">
+        <div id="alunos-data" className="w-full">
           <TabelaDeAlunos />
-        )}
+        </div>
+        <div className="w-full flex items-center justify-center">
+          <div className="flex gap-4">
+            <div>
+              <Button size="sm" onClick={() => navigate(-1)}>
+                Voltar
+              </Button>
+            </div>
+            <div>
+              <Button size="sm" onClick={() => navigate("cadastro-de-aluno")}>
+                Cadastrar aluno
+              </Button>
+            </div>
+            <div>
+              <Button size="sm">Excluir turma</Button>
+            </div>
+          </div>
+        </div>
+        <MainFooter />
       </div>
-    </div>
+    </>
   );
 }

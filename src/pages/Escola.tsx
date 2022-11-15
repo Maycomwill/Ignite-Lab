@@ -12,52 +12,83 @@ import { useClass } from "../hooks/useClasses";
 import { useSchool } from "../hooks/useSchools";
 import { useUser } from "../hooks/useUser";
 import { useEffect } from "react";
+import { Header } from "../components/Header";
+import MainFooter from "../components/MainFooter";
 
 export function Escola() {
   const { userData } = useUser();
-  const { schoolData, handleWithSchoolDataFromDb } = useSchool();
-  const { classData, loading } = useClass();
+  const { schoolData } = useSchool();
+  const { classData, handleWithClassesDataFromDb, loading } = useClass();
 
   const navigate = useNavigate();
   const params = useParams();
-  const turma = getTurmas(parseInt(`${params.escolaId}`, 10));
+
+  useEffect(() => {
+    if (schoolData !== null) {
+      handleWithClassesDataFromDb(`${params.escolaid}`);
+    }
+  }, []);
+
+
+  const schoolInfo = schoolData.find(
+    (id) => id.schoolId === `${params.escolaid}`
+  );
 
   if (userData?.userId) {
-    return (
-      <div className=" bg-gray-900 flex flex-col items-start justify-start gap-4">
-        <div className="flex gap-2 items-center w-full justify-between">
-          <Heading>a</Heading>
-          <div>
-            <Button size="sm" onClick={() => navigate('/escolas/turmas/cadastro')}>Cadastrar turma</Button>
+    if(!loading){
+      return (
+        <>
+          <Header />
+          <div className="p-4 bg-gray-900 flex flex-col items-start justify-start gap-4">
+            <div className="flex items-center w-full justify-between">
+              <Heading>Escola: {schoolInfo?.schoolName}</Heading>
+              <div className="flex gap-4 justify-end px-2 w-[30%]">
+                <div>
+                  <Button size="sm" onClick={() => navigate("cadastro-de-turma")}>
+                    Cadastrar turma
+                  </Button>
+                </div>
+                <div>
+                  <Button size="sm" onClick={() => navigate("/")}>
+                    Voltar
+                  </Button>
+                </div>
+              </div>
+            </div>
+            <div id="turma-data" className="flex items-center">
+              <div>
+                <ul role={"grid"} className="grid grid-flow-row grid-cols-3 gap-4">
+                  {classData.map((turma) => {
+                    return (
+                      <li key={turma.classId}>
+                        <TurmaCard.Root>
+                          <TurmaCard.Icon>
+                            <Books />
+                          </TurmaCard.Icon>
+                          <TurmaCard.Content
+                            nome={turma.className}
+                            turmaid={turma.classId}
+                            escolaid={turma.schoolId}
+                          />
+                        </TurmaCard.Root>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </div>
+              <div className="pt-4 w-full flex items-center justify-center">
+                <div>
+                <Button size="sm">
+                  Excluir escola
+                </Button>
+                </div>
+              </div>
+              <MainFooter />
           </div>
-        </div>
-        <div id="turma-data" className="flex items-center">
-          <div>
-            <ul role={"list"} className="flex gap-2 list-none max-h-[80%]">
-              {turma.map((turma) => {
-                return (
-                  <>
-                    <li key={turma.turmaId}>
-                      <TurmaCard.Root>
-                        <TurmaCard.Icon>
-                          <Books />
-                        </TurmaCard.Icon>
-                        <TurmaCard.Content
-                          nome={turma.nome}
-                          turmaId={turma.turmaId}
-                          escolaId={turma.escolaId}
-                        />
-                      </TurmaCard.Root>
-                    </li>
-                  </>
-                );
-              })}
-            </ul>
-          </div>
-        </div>
-        <Outlet />
-      </div>
-    );
+        </>
+      );
+    }
   }
   if (loading) {
     return <Loading />;

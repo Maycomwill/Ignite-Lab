@@ -4,7 +4,7 @@ import { Text } from "./Text";
 
 function MainFooter() {
   return (
-    <div className="bg-gray-900 flex items-center px-12 justify-between w-screen">
+    <div className="bg-gray-900 flex items-center justify-between w-full">
       <div>
         <Text size="xxs" className="text-gray-500">Todos os direitos reservados &reg;</Text>
       </div>

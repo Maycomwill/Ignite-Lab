@@ -54,8 +54,8 @@ export function Home() {
                 )}
               </ul>
             </div>
+            <Outlet />
           </div>
-          <Outlet />
         </div>
         <MainFooter />
       </>

@@ -11,7 +11,7 @@ export interface TurmaCardRootProps {
 
 function TurmaCardRoot({ children }: TurmaCardRootProps) {
   return (
-    <div className="h-40 max-h-44 flex flex-col items-center justify-evenly gap-2 bg-gray-800 rounded w-80 px-4 py-4 text-center shadow-md">
+    <div className="h-40 max-h-44 flex flex-col items-center justify-evenly gap-2 bg-gray-800 rounded w-80 px-4 py-4 text-center border-b-4 border-green-900">
       {children}
     </div>
   );
@@ -33,8 +33,8 @@ function TurmaCardIcon({ className, children }: TurmaCardIconProps) {
 export interface TurmaCardContentProps extends HTMLAttributes<HTMLDivElement> {
   className?: string;
   nome: string;
-  turmaId: number;
-  escolaId: number;
+  turmaid: string;
+  escolaid: string;
 }
 
 function TurmaCardContent(props: TurmaCardContentProps) {
@@ -46,7 +46,7 @@ function TurmaCardContent(props: TurmaCardContentProps) {
         <Text color="white">Turma(a): {props.nome}</Text>
       </div>
       <div>
-        <Button size="sm" onClick={() => navigate(`${props.turmaId}`)}>
+        <Button size="sm" onClick={() => navigate(`${props.turmaid}`)}>
           Mais detalhes
         </Button>
       </div>

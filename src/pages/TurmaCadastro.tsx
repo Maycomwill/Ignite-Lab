@@ -1,45 +1,61 @@
 import { getAuth } from "firebase/auth";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import {
-  BookBookmark,
-  Buildings,
-  Hash,
-  MapPin,
-} from "phosphor-react";
-import { FormEvent, ReactElement, useState } from "react";
-import { useNavigate } from "react-router-dom";
+  collection,
+  addDoc,
+  serverTimestamp,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
+import { BookBookmark, Buildings, Hash, MapPin } from "phosphor-react";
+import { FormEvent, ReactElement, useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "../components/Button";
 import { Heading } from "../components/Heading";
 import { Loading } from "../components/Loading";
-import { Select } from "../components/Select";
+import { TurmaSelect } from "../components/TurmaSelect";
 import { Text } from "../components/Text";
 import { TextInput } from "../components/TextInput";
 import { db } from "../services/firebaseConfig";
+import { Header } from "../components/Header";
 
 interface TurmaCadastroProps extends ReactElement {}
 
 export function TurmaCadastro(): TurmaCadastroProps {
-  const [studentName, setStudentName] = useState("");
-  const [studentAge, setStudentAge] = useState("");
+  const params = useParams();
+  const [className, setClassName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [classId, setClassId] = useState("");
 
   const navigate = useNavigate();
+  const schoolId = `${params.escolaid}`;
   const auth = getAuth();
   const userId = auth.currentUser?.uid;
-  const docCollectionRef = collection(db, "students");
+  const docCollectionRef = collection(db, "classes");
 
-  async function handleSchoolRegister(e: FormEvent) {
+  async function handleClassRegister(e: FormEvent) {
     e.preventDefault();
     setLoading(true);
-    alert("Aluno cadastrado");
-    const studentRegister = await addDoc(docCollectionRef, {
-      studentName: studentName,
-      studentAge: studentAge,
+    const classRegister = await addDoc(docCollectionRef, {
+      className,
       createdAt: serverTimestamp(),
-      userId: auth.currentUser?.uid,
-      turmaId: docCollectionRef.id
+      schoolId,
     });
-    console.log(studentRegister);
+    setClassId(classRegister.id);
+  }
+
+  useEffect(() => {
+    if (classId !== null) {
+      addingClassIdToTheDocumentCreated();
+    }
+  }, [classId]);
+
+  async function addingClassIdToTheDocumentCreated() {
+    const docRef = doc(db, "classes", `${classId}`);
+    const classIdUpdate = await updateDoc(docRef, {
+      classId: `${classId}`,
+    });
+    console.log(classIdUpdate);
+    alert("Turma cadastrada");
     navigate("/");
     setLoading(false);
   }
@@ -49,51 +65,40 @@ export function TurmaCadastro(): TurmaCadastroProps {
   }
 
   return (
-    <div className="w-screen flex flex-col items-center justify-center mt-4">
-      <header className="text-center">
-        <Heading size="lg" className="text-gray-100">
-          Preencha os campos e cadastre um aluno(a)
-        </Heading>
-      </header>
-      <form
-        onSubmit={handleSchoolRegister}
-        className="flex flex-col gap-4 mt-4 w-full max-w-sm"
-      >
-        <label htmlFor="student-name" className="flex flex-col gap-3">
-          <Text className="text-sm font-semibold">Nome da turma</Text>
-          <TextInput.Root>
-            <TextInput.Icon>
-              <BookBookmark />
-            </TextInput.Icon>
-            <TextInput.Input
-              required
-              onChange={(e) => setStudentName(e.target.value)}
-              type="text"
-              autoComplete="false"
-              id="student-name"
-              placeholder="Digite o nome da turma"
-            />
-          </TextInput.Root>
-        </label>
-        <label htmlFor="studentAge" className="flex flex-col gap-3">
-          <Text className="text-sm font-semibold">De qual escola é essa turma?</Text>
-          <TextInput.Root>
-            <TextInput.Icon>
-              <Buildings />
-            </TextInput.Icon>
-            <TextInput.Input
-              required
-              onChange={(e) => setStudentAge(e.target.value)}
-              type="date"
-              autoComplete="false"
-              id="studentAge"
-              placeholder="Selecione a data de nascimento"
-            />
-          </TextInput.Root>
-        </label>
-        <Button type="submit">Cadastrar turma </Button>
-      </form>
-      <Select />
-    </div>
+    <>
+      <div>
+        <Header />
+      </div>
+      <div className="w-screen flex flex-col items-center justify-center mt-4">
+        <header className="text-center">
+          <Heading size="lg" className="text-gray-100">
+            Preencha os campos e cadastre uma turma
+          </Heading>
+        </header>
+        <form
+          onSubmit={handleClassRegister}
+          className="w-full flex flex-col gap-4 mt-4 max-w-sm"
+        >
+          <label htmlFor="student-name" className="flex flex-col gap-3">
+            <Text className="text-sm font-semibold">Nome da turma</Text>
+            <TextInput.Root>
+              <TextInput.Icon>
+                <BookBookmark />
+              </TextInput.Icon>
+              <TextInput.Input
+                required
+                onChange={(e) => setClassName(e.target.value)}
+                value={className}
+                type="text"
+                autoComplete="false"
+                id="student-name"
+                placeholder="Digite o nome da turma"
+              />
+            </TextInput.Root>
+          </label>
+          <Button type="submit">Cadastrar turma </Button>
+        </form>
+      </div>
+    </>
   );
 }

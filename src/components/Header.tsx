@@ -20,7 +20,7 @@ export function Header() {
 
   if (userData?.photoURL === auth.currentUser?.photoURL) {
     return (
-      <div className="flex w-full items-center justify-between gap-4 p-4 border-b-4 rounded border-green-500">
+      <div className="flex w-full items-center justify-between gap-4 p-4 border-b-2 border-green-500">
         <Heading>
           <a
             href="/"
@@ -31,11 +31,11 @@ export function Header() {
         </Heading>
         <div className="flex w-[30%] gap-2 items-center justify-end">
           <Text>{userData?.name}</Text>
-          <img
+          {userData?.photoURL !== null ? <img
             className="rounded-full w-8 ring-2 ring-green-500 shadow-sm"
             src={userData?.photoURL}
             alt="User Image from Google Account"
-          />
+          /> : null }
           <div className="">
             <Button size="sm" onClick={logout}>
               Sair

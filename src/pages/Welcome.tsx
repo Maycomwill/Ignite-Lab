@@ -38,7 +38,7 @@ export function Welcome() {
             <LogIn />
           </div>
         </div>
-        <div className="">
+        <div className="px-4">
           <MainFooter />
         </div>
       </div>

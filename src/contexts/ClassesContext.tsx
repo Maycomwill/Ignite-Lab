@@ -10,20 +10,18 @@ import {
 } from "firebase/firestore";
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useParams } from "react-router-dom";
 import { auth, db } from "../services/firebaseConfig";
 
 interface ClassesProps {
   className: string;
-  schoolId?: string;
-  ammount_of_students: number;
-  classId?: string
+  schoolId: string;
+  classId: string
 }
 
 export interface ClassesContextDataProps {
   classData: ClassesProps[];
   loading: boolean;
-  handleWithClassesDataFromDb: (schoolId: ClassesProps) => void;
+  handleWithClassesDataFromDb: (schoolId: string) => void;
 }
 
 interface ClassesProviderProps {
@@ -34,12 +32,15 @@ export const ClassesContext = createContext({} as ClassesContextDataProps);
 
 export function ClassesContextProvider({ children }: ClassesProviderProps) {
   
-  const [user, loading, error] = useAuthState(auth);
+  const [user, error] = useAuthState(auth);
+  const [loading, setLoading] = useState(false)
   const [classData, setClassData] = useState<ClassesProps[]>([]);
 
-  async function handleWithClassesDataFromDb(userId: ClassesProps) {
-    const docCollectionRef = collection(db, "schools");
-    const q = query(docCollectionRef, where("userId", "==", `${userId}`));
+  async function handleWithClassesDataFromDb(schoolId: string) {
+    setLoading(true)
+    setClassData([]);
+    const docCollectionRef = collection(db, "classes");
+    const q = query(docCollectionRef, where("schoolId", "==", `${schoolId}`));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       setClassData((prev) => [
@@ -47,19 +48,12 @@ export function ClassesContextProvider({ children }: ClassesProviderProps) {
         {
           className: doc.data().className,
           schoolId: doc.data().schoolId,
-          ammount_of_students: doc.data().ammount_of_students,
+          classId: doc.data().classId
         },
       ]);
     });
+    setLoading(false)
   }
-
-  useEffect(() => {
-    if (user) {
-      setClassData([]);
-      handleWithClassesDataFromDb;
-    } else {
-    }
-  }, [user]);
 
   return (
     <ClassesContext.Provider
