@@ -1,6 +1,7 @@
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import {
   collection,
+  deleteDoc,
   doc,
   getDocs,
   query,
@@ -15,13 +16,15 @@ import { auth, db } from "../services/firebaseConfig";
 interface ClassesProps {
   className: string;
   schoolId: string;
-  classId: string
+  classId: string;
+  userId: string;
 }
 
 export interface ClassesContextDataProps {
   classData: ClassesProps[];
   loading: boolean;
   handleWithClassesDataFromDb: (schoolId: string) => void;
+  handleDeleteClassFromDB: (classId: any) => void;
 }
 
 interface ClassesProviderProps {
@@ -48,11 +51,19 @@ export function ClassesContextProvider({ children }: ClassesProviderProps) {
         {
           className: doc.data().className,
           schoolId: doc.data().schoolId,
-          classId: doc.data().classId
+          classId: doc.data().classId,
+          userId: doc.data().userId
         },
       ]);
     });
     setLoading(false)
+  }
+
+  async function handleDeleteClassFromDB(classId: any) {
+    const classDelete = await deleteDoc(doc(db, "classes", classId));
+    console.log("Excluindo turma", classId);
+    alert("Turma excluida");
+    location.reload()
   }
 
   return (
@@ -61,6 +72,7 @@ export function ClassesContextProvider({ children }: ClassesProviderProps) {
         classData,
         loading,
         handleWithClassesDataFromDb,
+        handleDeleteClassFromDB
       }}
     >
       {children}

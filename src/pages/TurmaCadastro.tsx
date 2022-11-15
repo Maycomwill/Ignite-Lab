@@ -39,6 +39,7 @@ export function TurmaCadastro(): TurmaCadastroProps {
       className,
       createdAt: serverTimestamp(),
       schoolId,
+      userId
     });
     setClassId(classRegister.id);
   }

@@ -1,17 +1,8 @@
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../services/firebaseConfig";
 import { useUser } from "../hooks/useUser";
-
-import { Text } from "../components/Text";
-import { Spinner } from "phosphor-react";
-import { Button } from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import { SVGHome } from "../components/SVGHome";
-import { Heading } from "../components/Heading";
 import { LogIn } from "./LogIn";
 import { Home } from "./Home";
-import { Loading } from "../components/Loading";
 import MainFooter from "../components/MainFooter";
 
 export function Welcome() {
@@ -20,7 +11,7 @@ export function Welcome() {
 
   if (user) {
     return (
-      <div className="flex h-full w-full justify-start items-center flex-col gap-4 bg-gray-900">
+      <div className="flex h-full w-full justify-start items-center flex-col gap-2 bg-gray-900">
         <Home />
       </div>
     );
@@ -38,7 +29,7 @@ export function Welcome() {
             <LogIn />
           </div>
         </div>
-        <div className="px-4">
+        <div className="p-4 w-full">
           <MainFooter />
         </div>
       </div>

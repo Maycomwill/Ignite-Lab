@@ -1,4 +1,4 @@
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, signInWithPopup, User } from "firebase/auth";
 import {
   collection,
   doc,
@@ -20,7 +20,7 @@ interface UserProps {
 }
 
 export interface UserContextDataProps {
-  user: any;
+  user: User | null | undefined;
   userData: UserProps | null;
   signInWithGoogle: () => Promise<void>;
   handleWithUserDataFromDb: () => void;
@@ -34,7 +34,7 @@ export const UserContext = createContext({} as UserContextDataProps);
 
 export function UserContextProvider({ children }: UserProviderProps) {
   const [userData, setUserData] = useState<UserProps | null>(null);
-  const [user, loading, error] = useAuthState(auth);
+  const [user] = useAuthState(auth);
 
   async function handleWithUserDataFromDb() {
     const docCollectionRef = collection(db, "users");

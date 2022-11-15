@@ -1,6 +1,7 @@
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import {
   collection,
+  deleteDoc,
   doc,
   getDocs,
   query,
@@ -10,7 +11,7 @@ import {
 } from "firebase/firestore";
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { auth, db } from "../services/firebaseConfig";
 
 interface SchoolsProps {
@@ -23,7 +24,9 @@ interface SchoolsProps {
 export interface SchoolsContextDataProps {
   user: any;
   schoolData: SchoolsProps[];
+  isLoading: boolean;
   handleWithSchoolDataFromDb: (userId: string | undefined) => void;
+  handleDeleteSchoolFromDB: (schoolId: any) => void;
 }
 
 interface SchoolsProviderProps {
@@ -33,7 +36,8 @@ interface SchoolsProviderProps {
 export const SchoolsContext = createContext({} as SchoolsContextDataProps);
 
 export function SchoolsContextProvider({ children }: SchoolsProviderProps) {
-  const [user, loading, error] = useAuthState(auth);
+  const [user] = useAuthState(auth);
+  const [isLoading, setIsLoading] = useState(false);
   const [schoolData, setSchoolData] = useState<SchoolsProps[]>([]);
 
   async function handleWithSchoolDataFromDb(userId: string | undefined) {
@@ -47,10 +51,19 @@ export function SchoolsContextProvider({ children }: SchoolsProviderProps) {
           schoolName: doc.data().schoolName,
           userId: doc.data().userId,
           address: doc.data().address,
-          schoolId: doc.data().schoolId
+          schoolId: doc.data().schoolId,
         },
       ]);
     });
+  }
+
+  async function handleDeleteSchoolFromDB(schoolId: any) {
+    setIsLoading(true);
+    const schoolDelete = await deleteDoc(doc(db, "schools", schoolId));
+    console.log("Excluindo escola", schoolId);
+    alert("Escola excluida");
+    location.reload()
+    setIsLoading(false);
   }
 
   useEffect(() => {
@@ -65,8 +78,10 @@ export function SchoolsContextProvider({ children }: SchoolsProviderProps) {
     <SchoolsContext.Provider
       value={{
         user,
+        isLoading,
         schoolData,
         handleWithSchoolDataFromDb,
+        handleDeleteSchoolFromDB,
       }}
     >
       {children}

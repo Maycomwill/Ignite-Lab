@@ -29,16 +29,16 @@ export function IndexRoutes() {
           }
         />
         <Route path="/" element={<Welcome />}>
-          <Route path="/escolas/cadastro" element={<EscolaCadastro />} />
+          <Route path="/cadastro" element={<EscolaCadastro />} />
         </Route>
-        <Route path="/escolas/:escolaid" element={<Escola />} />
+        <Route path="/:escolaid" element={<Escola />} />
         <Route
-          path="/escolas/:escolaid/cadastro-de-turma"
+          path="/:escolaid/cadastro-de-turma"
           element={<TurmaCadastro />}
         />
-        <Route path="/escolas/:escolaid/:turmaid" element={<Turma />} />
-        <Route path=":alunoid" element={<AlunoDetails />} />
-        <Route path="/escolas/:escolaid/:turmaid/cadastro-de-aluno" element={<AlunoCadastro />} />
+        <Route path="/:escolaid/:turmaid" element={<Turma />} />
+        <Route path="/:escolaid/:turmaid/:alunoid" element={<AlunoDetails />} />
+        <Route path="/:escolaid/:turmaid/cadastro-de-aluno" element={<AlunoCadastro />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/register" element={<Register />} />
       </Routes>

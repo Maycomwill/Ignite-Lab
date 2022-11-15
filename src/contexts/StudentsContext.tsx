@@ -1,6 +1,7 @@
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import {
   collection,
+  deleteDoc,
   doc,
   getDocs,
   query,
@@ -17,12 +18,14 @@ interface StudentsProps {
   studentAge: string;
   studentId: string;
   classId: string;
+  userId: string;
 }
 
 export interface StudentsContextDataProps {
   studentsData: StudentsProps[];
   loading: boolean;
   handleWithStudentsDataFromDb: (classId: string) => void;
+  handleDeleteStudentFromDB: (studentId: any) => void;
 }
 
 interface StudentsProviderProps {
@@ -50,10 +53,18 @@ export function StudentsContextProvider({ children }: StudentsProviderProps) {
           studentAge: doc.data().studentAge,
           studentId: doc.data().studentId,
           classId: doc.data().classId,
+          userId: doc.data().userId
         },
       ]);
     });
     setLoading(false);
+  }
+
+  async function handleDeleteStudentFromDB(studentId: any) {
+    const studentDelete = await deleteDoc(doc(db, "students", studentId));
+    console.log("Excluindo aluno", studentId);
+    alert("Aluno(a) excluido(a)");
+    location.reload()
   }
 
   return (
@@ -62,6 +73,7 @@ export function StudentsContextProvider({ children }: StudentsProviderProps) {
         studentsData,
         loading,
         handleWithStudentsDataFromDb,
+        handleDeleteStudentFromDB
       }}
     >
       {children}

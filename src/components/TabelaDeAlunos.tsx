@@ -4,7 +4,6 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useClass } from "../hooks/useClasses";
 import { useStudents } from "../hooks/useStudents";
 import { useUser } from "../hooks/useUser";
-import { getAlunos } from "../services/fetchData";
 import { Button } from "./Button";
 import { Heading } from "./Heading";
 import { Icon } from "./Icon";
@@ -16,9 +15,8 @@ import ptBR from "dayjs/locale/pt-br"
 export function TabelaDeAlunos() {
   const { userData } = useUser();
   const { classData } = useClass();
-  const { loading, handleWithStudentsDataFromDb, studentsData } = useStudents();
+  const { loading, handleWithStudentsDataFromDb, studentsData, handleDeleteStudentFromDB } = useStudents();
   const params = useParams();
-  const alunos = getAlunos(1);
   const navigate = useNavigate();
 
   const classInfo = classData.find((id) => id.classId === `${params.turmaid}`);
@@ -29,22 +27,20 @@ export function TabelaDeAlunos() {
     }
   }, []);
 
-  console.log(studentsData);
-
   if (userData?.userId) {
     if (!loading) {
       if (studentsData.length !== 0) {
         return (
           <div>
-            <div className="p-4 bg-gray-900 flex flex-col items-start justify-start gap-4">
+            <div className="bg-gray-900 flex flex-col items-start justify-start gap-4">
               <div className="flex items-center w-full justify-between">
-                <Heading>{classInfo?.className}</Heading>
+                <Text size="lg">Turma: {classInfo?.className}</Text>
                 <div className="flex gap-4 justify-end px-2 w-[30%]"></div>
               </div>
               <table className="border-collapse text-center w-full bg-gray-800 text-gray-200">
                 <thead>
                   <tr>
-                    <th className="px-4 py-1 border border-gray-100">Nome</th>
+                    <th className="px-4 py-1 border border-gray-100">Aluno</th>
                     <th className="px-4 py-1 border border-gray-100">
                       Data de nascimento
                     </th>
@@ -71,7 +67,7 @@ export function TabelaDeAlunos() {
                         </td>
                         <td className="px-4 py-1 border border-gray-100 text-xsm">
                           <Button
-                            onClick={() => navigate(`/${aluno.studentId}`)}
+                            onClick={() => navigate(`${aluno.studentId}`)}
                             size="xsm"
                           >
                             <Icon>
@@ -80,7 +76,7 @@ export function TabelaDeAlunos() {
                           </Button>
                         </td>
                         <td className="px-4 py-1 border border-gray-100">
-                          <Button size="xsm" textSize="sm">
+                          <Button size="xsm" textSize="sm" onClick={() => handleDeleteStudentFromDB(aluno.studentId)}>
                             Excluir
                           </Button>
                         </td>

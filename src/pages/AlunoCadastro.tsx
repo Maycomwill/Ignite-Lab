@@ -6,7 +6,7 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
-import { BookBookmark, Buildings, Hash, MapPin } from "phosphor-react";
+import { BookBookmark, Buildings } from "phosphor-react";
 import { FormEvent, ReactElement, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "../components/Button";
@@ -15,6 +15,7 @@ import { Heading } from "../components/Heading";
 import { Loading } from "../components/Loading";
 import { Text } from "../components/Text";
 import { TextInput } from "../components/TextInput";
+import { useUser } from "../hooks/useUser";
 import { db } from "../services/firebaseConfig";
 
 interface AlunoCadastroProps extends ReactElement {}
@@ -26,6 +27,7 @@ export function AlunoCadastro(): AlunoCadastroProps {
   const [studentId, setStudentId] = useState("");
 
   const navigate = useNavigate();
+  const { userData } = useUser()
   const params = useParams();
   const auth = getAuth();
   const classId = `${params.turmaid}`;
@@ -41,6 +43,7 @@ export function AlunoCadastro(): AlunoCadastroProps {
       createdAt: serverTimestamp(),
       classId: classId,
       schoolId: schoolId,
+      userId: userData?.userId
     });
     setStudentId(studentRegister.id);
   }

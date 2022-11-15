@@ -11,7 +11,7 @@ export interface TurmaCardRootProps {
 
 function TurmaCardRoot({ children }: TurmaCardRootProps) {
   return (
-    <div className="h-40 max-h-44 flex flex-col items-center justify-evenly gap-2 bg-gray-800 rounded w-80 px-4 py-4 text-center border-b-4 border-green-900">
+    <div className="h-40 max-h-44 flex flex-col items-center justify-evenly gap-2 bg-gray-800 rounded-md w-80 px-4 py-4 text-center border-b-4 border-green-500">
       {children}
     </div>
   );

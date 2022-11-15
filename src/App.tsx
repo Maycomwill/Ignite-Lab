@@ -1,6 +1,4 @@
-import MainFooter from "./components/MainFooter";
 import AppProvider from "./hooks/index";
-import { LogIn } from "./pages/LogIn";
 import { IndexRoutes } from "./routes";
 import "./styles/main.css";
 

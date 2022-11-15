@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Button } from "../components/Button";
 import { EscolaCard } from "../components/EscolaCard";
@@ -15,16 +14,16 @@ export function Home() {
   const navigate = useNavigate();
 
   function handleCadastroScreen() {
-    navigate("/escolas/cadastro");
+    navigate("/cadastro");
   }
 
   if (schoolData) {
     return (
       <>
         <Header />
-        <div className="w-full flex flex-col gap-4 p-4">
+        <div className="w-full flex flex-col gap-2 p-4">
           <div className="flex flex-col">
-            <div className="flex flex-1 justify-between pb-4">
+            <div className="flex justify-between pb-4">
               <Text size="lg">Escolas cadastradas:</Text>
               <div>
                 <Button onClick={handleCadastroScreen} size="sm">
@@ -40,7 +39,7 @@ export function Home() {
                       <li key={escola.schoolId}>
                         <EscolaCard
                           onClick={() => {
-                            navigate(`/escolas/${escola.schoolId}`);
+                            navigate(`/${escola.schoolId}`);
                           }}
                           escolaName={escola.schoolName}
                         />
@@ -56,8 +55,10 @@ export function Home() {
             </div>
             <Outlet />
           </div>
+          <div className="p-4 w-full">
+            <MainFooter />
+          </div>
         </div>
-        <MainFooter />
       </>
     );
   } else {
