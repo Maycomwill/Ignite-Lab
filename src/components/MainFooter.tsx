@@ -18,7 +18,7 @@ function MainFooter() {
         </Text>
       </div>
       <div>
-        <Text size="xxs" className="text-gray-500">
+        <Text size="xxs" className="text-rose-500 underline underline-offset-2">
           Em desenvolvimento
         </Text>
       </div>
