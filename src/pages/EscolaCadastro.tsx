@@ -20,7 +20,7 @@ import { db } from "../services/firebaseConfig";
 interface EscolaCadastroProps extends ReactElement {}
 
 function EscolaCadastro(): EscolaCadastroProps {
-  const { user, schoolData } = useSchool();
+  const { user, schoolData, handleWithSchoolDataFromDb } = useSchool();
 
   const [schoolName, setSchoolName] = useState("");
   const [schoolAddress, setSchoolAddress] = useState("");
@@ -60,6 +60,7 @@ function EscolaCadastro(): EscolaCadastroProps {
       });
       setLoading(false)
       alert("Escola cadastrada com sucesso!")
+      handleWithSchoolDataFromDb(auth.currentUser?.uid);
       navigate('/')
   }
 

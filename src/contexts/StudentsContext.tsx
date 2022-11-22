@@ -25,7 +25,7 @@ export interface StudentsContextDataProps {
   studentsData: StudentsProps[];
   loading: boolean;
   handleWithStudentsDataFromDb: (classId: string) => void;
-  handleDeleteStudentFromDB: (studentId: any) => void;
+  handleDeleteStudentFromDB: (studentId: string) => void;
 }
 
 interface StudentsProviderProps {
@@ -62,9 +62,8 @@ export function StudentsContextProvider({ children }: StudentsProviderProps) {
 
   async function handleDeleteStudentFromDB(studentId: any) {
     const studentDelete = await deleteDoc(doc(db, "students", studentId));
-    console.log("Excluindo aluno", studentId);
+    history.back();
     alert("Aluno(a) excluido(a)");
-    location.reload()
   }
 
   return (

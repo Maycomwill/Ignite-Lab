@@ -10,7 +10,7 @@ function MainFooter() {
         </Text>
       </div>
       <div className="flex flex-col items-center justify-center">
-        <a href="https://instagram.com/maycomwill" target="_blank">
+        <a className="hover:rotate-180 hover:scale-125 transition-transform duration-200" href="https://instagram.com/maycomwill" target="_blank">
         <SVGFooter width={25} height={25}/>
         </a>
         <Text size="xxs" className="text-gray-500">

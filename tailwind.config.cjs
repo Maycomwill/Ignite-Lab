@@ -68,6 +68,14 @@ module.exports = {
     },
     extend: {
 
+      screens: {
+        'phone': '300px'
+      },
+
+      rotate: {
+        '360': '360deg',
+      },
+
       gridTemplateColumns: {
         'layout': 'repeat(3, minmax(320px,1fr))'
       },

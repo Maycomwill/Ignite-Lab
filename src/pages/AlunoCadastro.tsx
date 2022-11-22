@@ -27,7 +27,7 @@ export function AlunoCadastro(): AlunoCadastroProps {
   const [studentId, setStudentId] = useState("");
 
   const navigate = useNavigate();
-  const { userData } = useUser()
+  const { userData } = useUser();
   const params = useParams();
   const auth = getAuth();
   const classId = `${params.turmaid}`;
@@ -43,7 +43,7 @@ export function AlunoCadastro(): AlunoCadastroProps {
       createdAt: serverTimestamp(),
       classId: classId,
       schoolId: schoolId,
-      userId: userData?.userId
+      userId: userData?.userId,
     });
     setStudentId(studentRegister.id);
   }
@@ -114,6 +114,7 @@ export function AlunoCadastro(): AlunoCadastroProps {
             </TextInput.Root>
           </label>
           <Button type="submit">Cadastrar aluno</Button>
+          <Button onClick={() => navigate(-1)}>Voltar</Button>
         </form>
       </div>
     </>

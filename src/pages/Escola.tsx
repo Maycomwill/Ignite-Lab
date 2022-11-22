@@ -39,8 +39,12 @@ export function Escola() {
               <Text size="lg">Escola: {schoolInfo?.schoolName}</Text>
               <div className="flex gap-4 justify-end px-2 w-[30%]"></div>
             </div>
-            <div
-              className="
+              {classData.length == 0 ? (
+                <div className="w-full px-4 py-3 rounded bg-gray-800 text-center">
+                  <Text size="lg" weight="bold">Você não possui turmas cadastradas</Text>
+                </div>
+              ) : (
+                <div className="
                 w-[100%]
                 mx-4
                 grid
@@ -57,23 +61,25 @@ export function Escola() {
                 hover:scrollbar-thumb-gray-500
                 scrollbar-track-rounded-md
                 scrollbar-thumb-rounded-md"
-            >
-              {classData.map((turma) => {
-                return (
-                  <div key={turma.classId}>
-                    <TurmaCard.Root>
-                      <TurmaCard.Icon>
-                        <Books />
-                      </TurmaCard.Icon>
-                      <TurmaCard.Content
-                        nome={turma.className}
-                        turmaid={turma.classId}
-                        escolaid={turma.schoolId}
-                      />
-                    </TurmaCard.Root>
+                >
+                  {classData.map((turma) => {
+                    return (
+                      <div key={turma.classId}>
+                        <TurmaCard.Root>
+                          <TurmaCard.Icon>
+                            <Books />
+                          </TurmaCard.Icon>
+                          <TurmaCard.Content
+                            nome={turma.className}
+                            turmaid={turma.classId}
+                            escolaid={turma.schoolId}
+                          />
+                        </TurmaCard.Root>
+                      </div>
+                    );
+                  })}
                   </div>
-                );
-              })}
+              )}
             </div>
             <div className="pt-4 w-full flex items-center justify-center gap-4">
               <div>
@@ -101,7 +107,6 @@ export function Escola() {
             <div className="p-4 w-full">
               <MainFooter />
             </div>
-          </div>
         </>
       );
     }

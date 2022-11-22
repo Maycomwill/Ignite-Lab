@@ -22,10 +22,9 @@ export function Header() {
     return (
       <div className="flex w-full items-center justify-between gap-4 p-4 border-b-2 border-green-500">
         <Heading>
-          <div className="hover:text-green-500 hover:translate-x-2 transition-all duration-100">
+          <div className=" hover:text-green-500 hover:translate-x-2 transition-all duration-100">
           <a
             href="/"
-            
           >
             Caderneta Digital
           </a>
@@ -33,7 +32,7 @@ export function Header() {
         </Heading>
         <div className="flex w-[30%] gap-6 items-center justify-end">
           <div className="flex items-center justify-center gap-2">
-            <Text size="md">{userData?.name}</Text>
+            <Text size="md" >{userData?.name}</Text>
             {userData?.photoURL !== null ? (
               <div className="shadow-md shadow-black rounded-full">
                 <img

@@ -57,7 +57,7 @@ export function TurmaCadastro(): TurmaCadastroProps {
     });
     console.log(classIdUpdate);
     alert("Turma cadastrada");
-    navigate("/");
+    history.back();
     setLoading(false);
   }
 

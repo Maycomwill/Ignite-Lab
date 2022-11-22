@@ -90,7 +90,7 @@ export function TabelaDeAlunos() {
         );
       } else {
         return (
-          <div className="p-4 flex items-center justify-center rounded-lg bg-gray-800">
+          <div className="p-4 text-center rounded-lg bg-gray-800">
             <Text size="lg" weight="bold">
               Você ainda não tem alunos cadastrados nessa turma
             </Text>

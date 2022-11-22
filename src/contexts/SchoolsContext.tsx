@@ -44,6 +44,7 @@ export function SchoolsContextProvider({ children }: SchoolsProviderProps) {
     const docCollectionRef = collection(db, "schools");
     const q = query(docCollectionRef, where("userId", "==", `${userId}`));
     const querySnapshot = await getDocs(q);
+    setSchoolData([])
     querySnapshot.forEach((doc) => {
       setSchoolData((prev) => [
         ...prev,
@@ -62,7 +63,8 @@ export function SchoolsContextProvider({ children }: SchoolsProviderProps) {
     const schoolDelete = await deleteDoc(doc(db, "schools", schoolId));
     console.log("Excluindo escola", schoolId);
     alert("Escola excluida");
-    location.replace("/")
+    handleWithSchoolDataFromDb(user?.uid);
+    location.replace("/");
     setIsLoading(false);
   }
 
