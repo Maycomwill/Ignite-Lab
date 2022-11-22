@@ -9,7 +9,6 @@ import { useSchool } from "../hooks/useSchools";
 import { useUser } from "../hooks/useUser";
 
 export function Home() {
-  const { userData } = useUser();
   const { schoolData } = useSchool();
   const navigate = useNavigate();
 

@@ -10,6 +10,8 @@ import { AlunoDetails } from "../pages/AlunoDetails";
 import EscolaCadastro from "../pages/EscolaCadastro";
 import { AlunoCadastro } from "../pages/AlunoCadastro";
 import { TurmaCadastro } from "../pages/TurmaCadastro";
+import ObservaçõesUpdate from "../pages/ObservaçõesUpdate";
+import { BlankPage } from "../components/BlankPage";
 
 export function IndexRoutes() {
   return (
@@ -17,16 +19,7 @@ export function IndexRoutes() {
       <Routes>
         <Route
           path="*"
-          element={
-            <div className="h-screen w-full bg-gray-900 flex flex-col items-center justify-center">
-              <div className="w-96 gap-4 flex flex-col items-strech text-center">
-                <Text className="text-xlg">Não há nada aqui</Text>
-                <Link to="/">
-                  <Button>Volte para a Home</Button>
-                </Link>
-              </div>
-            </div>
-          }
+          element={<BlankPage />}
         />
         <Route path="/" element={<Welcome />}>
           <Route path="/cadastro" element={<EscolaCadastro />} />
@@ -37,8 +30,16 @@ export function IndexRoutes() {
           element={<TurmaCadastro />}
         />
         <Route path="/:escolaid/:turmaid" element={<Turma />} />
-        <Route path="/:escolaid/:turmaid/:alunoid" element={<AlunoDetails />} />
-        <Route path="/:escolaid/:turmaid/cadastro-de-aluno" element={<AlunoCadastro />} />
+        <Route
+          path="/:escolaid/:turmaid/cadastro-de-aluno"
+          element={<AlunoCadastro />}
+        />
+        <Route path="/:escolaid/:turmaid/:alunoid" element={<AlunoDetails />}>
+          <Route
+            path="/:escolaid/:turmaid/:alunoid/update"
+            element={<ObservaçõesUpdate />}
+          />
+        </Route>
         <Route path="/login" element={<LogIn />} />
         <Route path="/register" element={<Register />} />
       </Routes>

@@ -7,6 +7,7 @@ import {
   query,
   serverTimestamp,
   setDoc,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import { createContext, ReactNode, useEffect, useState } from "react";
@@ -25,8 +26,11 @@ interface StudentsProps {
 export interface StudentsContextDataProps {
   studentsData: StudentsProps[];
   loading: boolean;
+  uniqueStudent: StudentsProps | undefined;
+  handleUpdateNotesFromStudent: (studentId: string, noteToUpdate: string) => void;
   handleWithStudentsDataFromDb: (classId: string) => void;
   handleDeleteStudentFromDB: (studentId: string) => void;
+  handleWithUniqueStudentData: (studentId: string) => void;
 }
 
 interface StudentsProviderProps {
@@ -38,8 +42,15 @@ export const StudentsContext = createContext({} as StudentsContextDataProps);
 export function StudentsContextProvider({ children }: StudentsProviderProps) {
   const [user, error] = useAuthState(auth);
   const [loading, setLoading] = useState(false);
+  const [uniqueStudent, setUniqueStudent] = useState<StudentsProps>()
   const [studentsData, setStudentsData] = useState<StudentsProps[]>([]);
 
+ function handleWithUniqueStudentData(studentId: string) {
+    setUniqueStudent(studentsData.find(
+      (aluno) => aluno.studentId === studentId
+    ))
+  }
+  
   async function handleWithStudentsDataFromDb(classId: string) {
     setLoading(true);
     setStudentsData([]);
@@ -62,6 +73,18 @@ export function StudentsContextProvider({ children }: StudentsProviderProps) {
     setLoading(false);
   }
 
+  async function handleUpdateNotesFromStudent(studentId: string, noteToUpdate: string) {
+    setLoading(true)
+    const docRef = doc(db, "students", `${studentId}`)
+    const studentIdUpdate = await updateDoc(docRef, {
+      notes: `${noteToUpdate}`,
+    });
+    alert("Anotação atualizada");
+
+    history.go(-2);
+    setLoading(false)
+  }
+
   async function handleDeleteStudentFromDB(studentId: any) {
     const studentDelete = await deleteDoc(doc(db, "students", studentId));
     history.back();
@@ -73,8 +96,11 @@ export function StudentsContextProvider({ children }: StudentsProviderProps) {
       value={{
         studentsData,
         loading,
+        uniqueStudent,
         handleWithStudentsDataFromDb,
-        handleDeleteStudentFromDB
+        handleDeleteStudentFromDB,
+        handleUpdateNotesFromStudent,
+        handleWithUniqueStudentData
       }}
     >
       {children}

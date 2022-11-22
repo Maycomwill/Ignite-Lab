@@ -54,7 +54,6 @@ export function TabelaDeAlunos() {
                     <th className="px-4 py-1 border border-gray-100">
                       Data de nascimento
                     </th>
-                    <th className="px-4 py-1 border border-gray-100">Id</th>
                     <th className="px-4 py-1 border border-gray-100">
                       Detalhes
                     </th>
@@ -77,9 +76,6 @@ export function TabelaDeAlunos() {
                           {birthDay}
                         </td>
                         <td className="px-4 py-1 border border-gray-100 text-xsm">
-                          {aluno.studentId}
-                        </td>
-                        <td className="px-4 py-1 border border-gray-100 text-xsm">
                           <div className="w-[50%] m-auto">
                             <Button
                               onClick={() => navigate(`${aluno.studentId}`)}
@@ -92,6 +88,7 @@ export function TabelaDeAlunos() {
                           </div>
                         </td>
                         <td className="px-4 py-1 border border-gray-100">
+                          <div className="w-[50%] m-auto">
                           <Button
                             size="sm"
                             textSize="sm"
@@ -99,8 +96,9 @@ export function TabelaDeAlunos() {
                               handleDeleteStudentFromDB(aluno.studentId)
                             }
                           >
-                            Excluir
+                            Excluir aluno(a)
                           </Button>
+                          </div>
                         </td>
                       </tr>
                     </tbody>
