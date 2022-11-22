@@ -21,7 +21,12 @@ export function AlunoDetails() {
   const params = useParams();
   const navigate = useNavigate();
   const { user } = useUser();
-  const { handleWithStudentsDataFromDb, handleWithUniqueStudentData, studentsData, loading, uniqueStudent } = useStudents();
+  const {
+    handleWithStudentsDataFromDb,
+    handleDeleteStudentFromDB,
+    studentsData,
+    loading,
+  } = useStudents();
   const { classData } = useClass();
   const { schoolData } = useSchool();
   const [studentsNotes, setStudentsNotes] = useState<string | undefined>("");
@@ -35,9 +40,8 @@ export function AlunoDetails() {
   const schoolInfo = schoolData.find(
     (id) => id.schoolId === `${params.escolaid}`
   );
-  
-  useEffect(() => {
 
+  useEffect(() => {
     handleWithStudentsDataFromDb(`${params.turmaid}`);
 
     if (studentInfo?.notes === "") {
@@ -50,8 +54,8 @@ export function AlunoDetails() {
   }, []);
 
   if (user) {
-    if (loading){
-      <Loading />
+    if (loading) {
+      <Loading />;
     }
     if (user?.uid === studentInfo?.userId) {
       const birthDay = dayjs(studentInfo?.studentAge)
@@ -100,17 +104,29 @@ export function AlunoDetails() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col gap-4 items-center justify-center">
+            <div className="w-full flex flex-col gap-4 items-center justify-center">
               <Outlet />
-              <div>
-                <Button
-                  size="sm"
-                  onClick={() => {
-                    navigate(-1);
-                  }}
-                >
-                  Voltar
-                </Button>
+              <div className="w-[20%] flex gap-2 justify-center">
+                <div>
+                  <Button
+                    size="sm"
+                    onClick={() => {
+                      navigate(-1);
+                    }}
+                  >
+                    Voltar
+                  </Button>
+                </div>
+                <div>
+                  <Button
+                    size="sm"
+                    onClick={() =>
+                      handleDeleteStudentFromDB(studentInfo.studentId)
+                    }
+                  >
+                    Excluir aluno(a)
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
@@ -121,7 +137,5 @@ export function AlunoDetails() {
       );
     }
   }
-  return (
-    <MakeLogin />
-  );
+  return <MakeLogin />;
 }

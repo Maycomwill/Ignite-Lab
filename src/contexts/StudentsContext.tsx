@@ -87,7 +87,7 @@ export function StudentsContextProvider({ children }: StudentsProviderProps) {
 
   async function handleDeleteStudentFromDB(studentId: any) {
     const studentDelete = await deleteDoc(doc(db, "students", studentId));
-    history.back();
+    history.back()
     alert("Aluno(a) excluido(a)");
   }
 

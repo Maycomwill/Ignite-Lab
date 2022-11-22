@@ -57,9 +57,6 @@ export function TabelaDeAlunos() {
                     <th className="px-4 py-1 border border-gray-100">
                       Detalhes
                     </th>
-                    <th className="px-4 py-1 border border-gray-100">
-                      Excluir
-                    </th>
                   </tr>
                 </thead>
                 {studentsData.map((aluno) => {
@@ -85,19 +82,6 @@ export function TabelaDeAlunos() {
                                 <UserCircle />
                               </Icon>
                             </Button>
-                          </div>
-                        </td>
-                        <td className="px-4 py-1 border border-gray-100">
-                          <div className="w-[50%] m-auto">
-                          <Button
-                            size="sm"
-                            textSize="sm"
-                            onClick={() =>
-                              handleDeleteStudentFromDB(aluno.studentId)
-                            }
-                          >
-                            Excluir aluno(a)
-                          </Button>
                           </div>
                         </td>
                       </tr>

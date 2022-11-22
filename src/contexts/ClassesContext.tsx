@@ -63,7 +63,7 @@ export function ClassesContextProvider({ children }: ClassesProviderProps) {
     const classDelete = await deleteDoc(doc(db, "classes", classId));
     console.log("Excluindo turma", classId);
     alert("Turma excluida");
-    history.back()
+    history.go(-1)
   }
 
   return (
