@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { TurmaCard, TurmaCardProps } from "./TurmaCard";
+import { TurmaCard, TurmaCardRootProps } from "./TurmaCard";
 
 export default {
   title: "Components/TurmaCard",
@@ -8,6 +8,6 @@ export default {
     turmaName: "2º ano A",
   },
   argTypes: {},
-} as Meta<TurmaCardProps>;
+} as Meta<TurmaCardRootProps>;
 
-export const Default: StoryObj<TurmaCardProps> = {};
+export const Default: StoryObj<TurmaCardRootProps> = {};

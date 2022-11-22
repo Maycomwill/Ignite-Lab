@@ -40,6 +40,7 @@ export function Header() {
                   className="rounded-full w-10 ring-2 ring-green-500"
                   src={userData?.photoURL}
                   alt="User Image from Google Account"
+                  referrerPolicy="no-referrer"
                 />
               </div>
             ) : null}

@@ -62,7 +62,7 @@ export function SchoolsContextProvider({ children }: SchoolsProviderProps) {
     const schoolDelete = await deleteDoc(doc(db, "schools", schoolId));
     console.log("Excluindo escola", schoolId);
     alert("Escola excluida");
-    location.reload()
+    location.replace("/")
     setIsLoading(false);
   }
 

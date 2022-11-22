@@ -14,6 +14,7 @@ export default {
         nome="Maycom Willams de Farias Silva"
         turma="3º ano A"
         turno="Diurno"
+        alunoId="Id"
       ></AlunoCard.Content>,
     ],
   },

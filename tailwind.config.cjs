@@ -67,6 +67,10 @@ module.exports = {
 
     },
     extend: {
+
+      gridTemplateColumns: {
+        'layout': 'repeat(3, minmax(320px,1fr))'
+      },
       animation: {
         'spin-slow': 'spin 2s linear infinite'
       },
@@ -76,5 +80,9 @@ module.exports = {
       }
     },
   },
-  plugins: [],
-}
+  plugins: [require('tailwind-scrollbar')],
+
+  variants: {
+    scrollbar: ['rounded']
+  }
+};

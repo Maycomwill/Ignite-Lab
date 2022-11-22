@@ -31,27 +31,40 @@ export function Home() {
                 </Button>
               </div>
             </div>
-            <div className="w-[80%] py-3 flex gap-4">
-              <ul className="flex flex-wrap gap-2 list-none">
-                {schoolData ? (
-                  schoolData.map((escola) => {
-                    return (
-                      <li key={escola.schoolId}>
-                        <EscolaCard
-                          onClick={() => {
-                            navigate(`/${escola.schoolId}`);
-                          }}
-                          escolaName={escola.schoolName}
-                        />
-                      </li>
-                    );
-                  })
-                ) : (
-                  <Text size="md" weight="bold">
-                    Você ainda não tem escolas cadastradas
-                  </Text>
-                )}
-              </ul>
+            <div className="
+              mx-4
+              grid
+              pb-8
+              gap-4 
+              grid-cols-layout
+              grid-flow-col 
+              auto-cols-max 
+              overflow-scroll  
+              snap-mandatory 
+              scrollbar
+              scrollbar-thumb-gray-700
+              scrollbar-track-gray-800
+              hover:scrollbar-thumb-gray-500
+              scrollbar-track-rounded-md
+              scrollbar-thumb-rounded-md">
+              {schoolData ? (
+                schoolData.map((escola) => {
+                  return (
+                      <EscolaCard
+                        className="flex flex-shrink-0 snap-start"
+                        key={escola.schoolId}
+                        onClick={() => {
+                          navigate(`/${escola.schoolId}`);
+                        }}
+                        escolaName={escola.schoolName}
+                      />
+                  );
+                })
+              ) : (
+                <Text size="md" weight="bold">
+                  Você ainda não tem escolas cadastradas
+                </Text>
+              )}
             </div>
             <Outlet />
           </div>

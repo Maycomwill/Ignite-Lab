@@ -2,7 +2,6 @@ import { Books } from "phosphor-react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { TurmaCard } from "../components/TurmaCard";
 import { Button } from "../components/Button";
-import { Heading } from "../components/Heading";
 import { Loading } from "../components/Loading";
 import { Text } from "../components/Text";
 import { useClass } from "../hooks/useClasses";
@@ -40,30 +39,41 @@ export function Escola() {
               <Text size="lg">Escola: {schoolInfo?.schoolName}</Text>
               <div className="flex gap-4 justify-end px-2 w-[30%]"></div>
             </div>
-            <div id="turma-data" className="flex items-center">
-              <div>
-                <ul
-                  role={"grid"}
-                  className="grid grid-flow-row grid-cols-3 gap-4"
-                >
-                  {classData.map((turma) => {
-                    return (
-                      <li key={turma.classId}>
-                        <TurmaCard.Root>
-                          <TurmaCard.Icon>
-                            <Books />
-                          </TurmaCard.Icon>
-                          <TurmaCard.Content
-                            nome={turma.className}
-                            turmaid={turma.classId}
-                            escolaid={turma.schoolId}
-                          />
-                        </TurmaCard.Root>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
+            <div
+              className="
+                w-[100%]
+                mx-4
+                grid
+                pb-8
+                gap-4 
+                grid-flow-col 
+                grid-cols-layout
+                auto-cols-max 
+                overflow-auto  
+                snap-mandatory 
+                scrollbar
+                scrollbar-thumb-gray-700
+                scrollbar-track-gray-800
+                hover:scrollbar-thumb-gray-500
+                scrollbar-track-rounded-md
+                scrollbar-thumb-rounded-md"
+            >
+              {classData.map((turma) => {
+                return (
+                  <div key={turma.classId}>
+                    <TurmaCard.Root>
+                      <TurmaCard.Icon>
+                        <Books />
+                      </TurmaCard.Icon>
+                      <TurmaCard.Content
+                        nome={turma.className}
+                        turmaid={turma.classId}
+                        escolaid={turma.schoolId}
+                      />
+                    </TurmaCard.Root>
+                  </div>
+                );
+              })}
             </div>
             <div className="pt-4 w-full flex items-center justify-center gap-4">
               <div>
@@ -80,7 +90,9 @@ export function Escola() {
               <div>
                 <Button
                   size="sm"
-                  onClick={() => handleDeleteSchoolFromDB(params.escolaid)}
+                  onClick={() => {
+                    handleDeleteSchoolFromDB(params.escolaid);
+                  }}
                 >
                   Excluir escola
                 </Button>

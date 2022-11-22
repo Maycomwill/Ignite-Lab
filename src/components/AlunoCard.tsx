@@ -30,8 +30,8 @@ export interface AlunoCardContentProps extends HTMLAttributes<HTMLDivElement> {
   className?: string;
   nome: string;
   turma: string;
+  alunoId: string;
   turno: string;
-  alunoId: number;
 }
 
 function AlunoCardContent(props: AlunoCardContentProps) {
