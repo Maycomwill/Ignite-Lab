@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Text } from "../components/Text";
 import { Button } from "../components/Button";
@@ -20,7 +20,7 @@ export function AlunoDetails() {
   const { handleWithStudentsDataFromDb, studentsData } = useStudents();
   const { classData } = useClass();
   const { schoolData } = useSchool();
-  const [myReadOnly, setMyReadOnly] = useState(true)
+  const [studentsNotes, setStudentsNotes] = useState<string | undefined>("");
 
   const studentInfo = studentsData.find(
     (id) => id.studentId === `${params.alunoid}`
@@ -32,13 +32,21 @@ export function AlunoDetails() {
     (id) => id.schoolId === `${params.escolaid}`
   );
 
-  function handleReadOnlyAttributeFromTextArea() {
-    setMyReadOnly(false)
-  }
+  useEffect(() => {
+    if (studentInfo?.notes === "") {
+      setStudentsNotes(
+        "Esse aluno ainda não possui nenhuma anotação registrada"
+      );
+    } else {
+      setStudentsNotes(studentInfo?.notes);
+    }
+  }, []);
+
   if (userData?.userId === studentInfo?.userId) {
     const birthDay = dayjs(studentInfo?.studentAge)
       .locale(ptBR)
       .format("DD [de] MMMM [de] YYYY");
+
     return (
       <>
         <Header />
@@ -61,6 +69,10 @@ export function AlunoDetails() {
           <div className="w-full flex gap-4">
             <div className="w-[50%]">
               <div className="flex gap-1">
+                <Text>Escola:</Text>
+                <Text>{schoolInfo?.schoolName}</Text>
+              </div>
+              <div className="flex gap-1">
                 <Text>Turma:</Text>
                 <Text className="capitalize">{classInfo?.className}</Text>
               </div>
@@ -74,18 +86,13 @@ export function AlunoDetails() {
                 <div className="flex flex-col gap-1">
                   <Text>Observações:</Text>
                   <div className="bg-gray-800 rounded">
-                    <p className="break-words indent-4 px-4 py-2 text-gray-100">
-                      {studentInfo?.notes}
+                    <p className="break-words indent-4 py-2 text-gray-100">
+                      {studentsNotes}
                     </p>
                   </div>
                 </div>
                 <div className="w-[15%] m-auto">
-                  <Button
-                    size="sm"
-                    onClick={handleReadOnlyAttributeFromTextArea}
-                  >
-                    Editar
-                  </Button>
+                  <Button size="sm">Editar</Button>
                 </div>
               </div>
             </div>
