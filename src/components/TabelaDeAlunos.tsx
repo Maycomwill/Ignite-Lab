@@ -1,4 +1,4 @@
-import { Pencil } from "phosphor-react";
+import { Pencil, User, UserCircle } from "phosphor-react";
 import { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useClass } from "../hooks/useClasses";
@@ -10,16 +10,26 @@ import { Icon } from "./Icon";
 import { Loading } from "./Loading";
 import { Text } from "./Text";
 import dayjs from "dayjs";
-import ptBR from "dayjs/locale/pt-br"
+import ptBR from "dayjs/locale/pt-br";
+import { useSchool } from "../hooks/useSchools";
 
 export function TabelaDeAlunos() {
   const { userData } = useUser();
   const { classData } = useClass();
-  const { loading, handleWithStudentsDataFromDb, studentsData, handleDeleteStudentFromDB } = useStudents();
+  const { schoolData } = useSchool();
+  const {
+    loading,
+    handleWithStudentsDataFromDb,
+    studentsData,
+    handleDeleteStudentFromDB,
+  } = useStudents();
   const params = useParams();
   const navigate = useNavigate();
 
   const classInfo = classData.find((id) => id.classId === `${params.turmaid}`);
+  const schoolInfo = schoolData.find(
+    (id) => id.schoolId === `${params.turmaid}`
+  );
 
   useEffect(() => {
     if (classData !== null) {
@@ -45,14 +55,18 @@ export function TabelaDeAlunos() {
                       Data de nascimento
                     </th>
                     <th className="px-4 py-1 border border-gray-100">Id</th>
-                    <th className="px-4 py-1 border border-gray-100">Editar</th>
+                    <th className="px-4 py-1 border border-gray-100">
+                      Detalhes
+                    </th>
                     <th className="px-4 py-1 border border-gray-100">
                       Excluir
                     </th>
                   </tr>
                 </thead>
                 {studentsData.map((aluno) => {
-                  const birthDay = dayjs(aluno.studentAge).locale(ptBR).format("DD [de] MMMM [de] YYYY");
+                  const birthDay = dayjs(aluno.studentAge)
+                    .locale(ptBR)
+                    .format("DD [de] MMMM [de] YYYY");
                   return (
                     <tbody key={aluno.studentId} className="text-gray-200">
                       <tr className="hover:bg-gray-900 transition-colors duration-150">
@@ -66,17 +80,25 @@ export function TabelaDeAlunos() {
                           {aluno.studentId}
                         </td>
                         <td className="px-4 py-1 border border-gray-100 text-xsm">
-                          <Button
-                            onClick={() => navigate(`${aluno.studentId}`)}
-                            size="xsm"
-                          >
-                            <Icon>
-                              <Pencil />
-                            </Icon>
-                          </Button>
+                          <div className="w-[50%] m-auto">
+                            <Button
+                              onClick={() => navigate(`${aluno.studentId}`)}
+                              size="sm"
+                            >
+                              <Icon>
+                                <UserCircle />
+                              </Icon>
+                            </Button>
+                          </div>
                         </td>
                         <td className="px-4 py-1 border border-gray-100">
-                          <Button size="xsm" textSize="sm" onClick={() => handleDeleteStudentFromDB(aluno.studentId)}>
+                          <Button
+                            size="sm"
+                            textSize="sm"
+                            onClick={() =>
+                              handleDeleteStudentFromDB(aluno.studentId)
+                            }
+                          >
                             Excluir
                           </Button>
                         </td>

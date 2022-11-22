@@ -44,6 +44,7 @@ export function AlunoCadastro(): AlunoCadastroProps {
       classId: classId,
       schoolId: schoolId,
       userId: userData?.userId,
+      notes: null
     });
     setStudentId(studentRegister.id);
   }

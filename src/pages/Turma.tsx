@@ -41,10 +41,7 @@ export function Turma() {
     return (
       <>
         <Header />
-        <div className="w-full bg-gray-900 flex flex-col items-start justify-start gap-4   p-4">
-          <div>
-            <Text size="lg">Turma: {classInfo?.className}</Text>
-          </div>
+        <div className="w-full bg-gray-900 flex flex-col items-start justify-start gap-4 p-4">
           <div id="alunos-data" className="w-full">
             <TabelaDeAlunos />
           </div>

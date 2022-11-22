@@ -19,6 +19,7 @@ interface StudentsProps {
   studentId: string;
   classId: string;
   userId: string;
+  notes: string;
 }
 
 export interface StudentsContextDataProps {
@@ -53,7 +54,8 @@ export function StudentsContextProvider({ children }: StudentsProviderProps) {
           studentAge: doc.data().studentAge,
           studentId: doc.data().studentId,
           classId: doc.data().classId,
-          userId: doc.data().userId
+          userId: doc.data().userId,
+          notes: doc.data().notes
         },
       ]);
     });
