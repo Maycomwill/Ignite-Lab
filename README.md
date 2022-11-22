@@ -29,7 +29,7 @@ Uma plataforma para cadastro de escolas, turmas e alunos para que um professor t
 
 ## Preview pics
 
-<p>Aqui está algumas imagens do projeto, porém, você também pode testar na <a href="https://caderneta-digital.vercel.app/">Live preview</a></p>
+<p>Aqui está algumas imagens do projeto, porém, você também pode testar na <a href="https://caderneta-digital.vercel.app/" target="_blank">Live preview</a></p>
 
  <div align="center">
  <img src="https://github.com/Maycomwill/Ignite-Lab/blob/master/public/Prints/1.jpg?raw=true" width: 700px/>
