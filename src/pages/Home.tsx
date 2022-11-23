@@ -73,10 +73,8 @@ export function Home() {
               )}
             <Outlet />
           </div>
-          <div className="p-4 w-full">
-            <MainFooter />
-          </div>
         </div>
+            <MainFooter />
       </>
     );
   } else {

@@ -119,6 +119,7 @@ export function AlunoDetails() {
                 </div>
                 <div>
                   <Button
+                    version="SECONDARY"
                     size="sm"
                     onClick={() =>
                       handleDeleteStudentFromDB(studentInfo.studentId)
@@ -130,9 +131,7 @@ export function AlunoDetails() {
               </div>
             </div>
           </div>
-          <div className="p-4 w-full">
-            <MainFooter />
-          </div>
+          <MainFooter />
         </>
       );
     }

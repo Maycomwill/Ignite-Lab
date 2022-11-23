@@ -103,6 +103,7 @@ export function Escola() {
               </div>
               <div>
                 <Button
+                  version="SECONDARY"
                   size="sm"
                   onClick={() => {
                     handleDeleteSchoolFromDB(params.escolaid);
@@ -112,9 +113,7 @@ export function Escola() {
                 </Button>
               </div>
             </div>
-            <div className="p-4 w-full">
               <MainFooter />
-            </div>
           </>
         );
       } else {
@@ -123,7 +122,5 @@ export function Escola() {
     }
   }
 
-  return (
-    <MakeLogin />
-  );
+  return <MakeLogin />;
 }

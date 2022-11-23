@@ -23,12 +23,12 @@ export function Turma() {
 
   const classInfo = classData.find((id) => id.classId === `${params.turmaid}`);
 
-  if (user){
-    if(loading){
-      <Loading />
+  if (user) {
+    if (loading) {
+      <Loading />;
     }
-    if(error){
-      console.log(error.message)
+    if (error) {
+      console.log(error.message);
     }
     if (classInfo?.userId === userData?.userId) {
       return (
@@ -46,12 +46,16 @@ export function Turma() {
                   </Button>
                 </div>
                 <div>
-                  <Button size="sm" onClick={() => navigate("cadastro-de-aluno")}>
+                  <Button
+                    size="sm"
+                    onClick={() => navigate("cadastro-de-aluno")}
+                  >
                     Cadastrar aluno
                   </Button>
                 </div>
                 <div>
                   <Button
+                    version="SECONDARY"
                     size="sm"
                     onClick={() => handleDeleteClassFromDB(params.turmaid)}
                   >
@@ -60,15 +64,11 @@ export function Turma() {
                 </div>
               </div>
             </div>
-            <div className="p-4 w-full">
-              <MainFooter />
-            </div>
           </div>
+          <MainFooter />
         </>
       );
     }
   }
-  return (
-    <MakeLogin />
-  );
+  return <MakeLogin />;
 }
