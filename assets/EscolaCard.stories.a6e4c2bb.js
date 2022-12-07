@@ -1,0 +1,2 @@
+import{E as o}from"./EscolaCard.e2b5f583.js";import"./Button.ffd05c47.js";import"./clsx.m.256e9345.js";import"./index.module.bfb50f19.js";import"./index.90586bf6.js";import"./iframe.d07f4ef8.js";import"./jsx-runtime.6ef4d586.js";import"./Text.4afaaba6.js";import"./IconBase.esm.29f72e23.js";const c={title:"Components/EscolaCard",component:o,args:{escolaName:"EREM Fernando Mota"},argTypes:{}},l={},d=["Default"];export{l as Default,d as __namedExportsOrder,c as default};
+//# sourceMappingURL=EscolaCard.stories.a6e4c2bb.js.map
