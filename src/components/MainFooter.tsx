@@ -14,7 +14,7 @@ function MainFooter() {
           <div className="flex flex-col items-center justify-center">
             <a
               className="hover:rotate-180 hover:scale-125 transition-transform duration-200"
-              href="https://instagram.com/maycomwill"
+              href="https://github.com/maycomwill"
               target="_blank"
             >
               <SVGFooter width={25} height={25} />

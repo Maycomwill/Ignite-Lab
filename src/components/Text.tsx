@@ -7,7 +7,7 @@ export interface TextProps extends React.HTMLAttributes<HTMLSpanElement> {
   children: ReactNode;
   asChild?: boolean;
   className?: string;
-  color?: string;
+  color?: "green" | "dark-gray" | "white";
   weight?: "regular" | "bold" | "black";
 }
 

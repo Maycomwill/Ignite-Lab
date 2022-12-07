@@ -93,7 +93,7 @@ module.exports = {
         'layout': 'repeat(3, minmax(320px,1fr))'
       },
       animation: {
-        'spin-slow': 'spin 2s linear infinite'
+        'spin-slow': 'spin 2s ease-in-out infinite'
       },
 
       fontFamily: {
